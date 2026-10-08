@@ -1,0 +1,11 @@
+{
+  "errors": [],
+  "dragService": "UI/UX & Conversion Optimization",
+  "dragMaskedText": "UI/UX DESIGN",
+  "verticalScrollDoesNotChangeService": true,
+  "footerWidth": {
+    "viewport": 1440,
+    "textWidth": 1440
+  },
+  "mobileOverflow": false
+}

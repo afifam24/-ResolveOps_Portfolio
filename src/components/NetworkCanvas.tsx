@@ -1,3 +1,4 @@
+import { accentChannels } from '../lib/palette';
 import { useEffect, useRef, useCallback } from 'react';
 import './NetworkCanvas.css';
 
@@ -12,9 +13,7 @@ const NODE_OPACITY_MIN  = 0.25;
 const NODE_OPACITY_MAX  = 0.90;
 const BRIGHT_NODE_COUNT = 4;     // these nodes get a bigger glow
 const MOUSE_RADIUS      = 120;   // px — only affects the network, not far outside
-const ACCENT_R          = 54;
-const ACCENT_G          = 224;
-const ACCENT_B          = 208;
+
 // ─────────────────────────────────────────────────────────────────────────
 
 interface Node {
@@ -76,12 +75,17 @@ export default function NetworkCanvas() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const [ACCENT_R, ACCENT_G, ACCENT_B] = accentChannels();
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // ── Resize ─────────────────────────────────────────────────────────────
+    let redrawStatic = () => {};
     const resize = () => {
       const parent = canvas.parentElement!;
       canvas.width  = parent.offsetWidth;
       canvas.height = parent.offsetHeight;
       nodes.current = makeNodes(canvas.width, canvas.height);
+      redrawStatic();
     };
 
     resize();
@@ -201,9 +205,10 @@ export default function NetworkCanvas() {
         ctx.fill();
       }
 
-      rafId.current = requestAnimationFrame(draw);
+      if (!reduced) rafId.current = requestAnimationFrame(draw);
     };
 
+    redrawStatic = () => { if (reduced) draw(); };
     rafId.current = requestAnimationFrame(draw);
 
     return () => {

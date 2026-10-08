@@ -1,0 +1,10 @@
+/* ResolveOPS Space-Nebula Theme v3 — Soft White + Lavender Accent */
+:is(.contact-form-container,.contact-card,.contact-sidebar-note,.project-card,.service-block-visual,.timeline-card,.process-step,.philosophy-item,.value-card,.rova-panel,.gallery-detail){position:relative;isolation:isolate;border-color:var(--border-subtle);box-shadow:none}
+:is(.contact-form-container,.contact-card,.contact-sidebar-note){background:var(--theme-card-bg)!important;border-radius:26px}
+:is(.contact-form-container,.contact-card,.contact-sidebar-note):hover{box-shadow:none!important;background:var(--theme-card-bg)!important;transform:none}
+:is(input,textarea,select){background:var(--theme-input-bg)!important;color:var(--theme-text-heading)!important;border-color:var(--border-medium)!important}
+:is(input,textarea,select):focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px rgba(var(--accent-rgb), 0.2)!important}
+.btn-primary{background:var(--accent)!important;color:var(--accent-text)!important;border-color:var(--accent)!important;box-shadow:var(--glow-soft)!important}.btn-primary:hover{background:var(--accent-hover)!important;color:var(--accent-text)!important;box-shadow:var(--glow-strong)!important;transform:translateY(-2px)!important}
+.text-accent{color:var(--accent);text-shadow:0 0 16px rgba(245, 243, 255, 0.55), 0 0 32px rgba(233, 229, 255, 0.28)}.rova-panel{background:var(--theme-surface-solid)!important}.rova-message{color:var(--theme-text-heading)}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){:is(.project-card,.value-card,.philosophy-item):hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.3)}}
+@media(prefers-reduced-motion:reduce){:is(.project-card,.value-card,.philosophy-item,.process-step):hover{transform:none}}

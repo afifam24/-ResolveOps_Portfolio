@@ -1,0 +1,341 @@
+/* ── Process Timeline Component ──────────────────── */
+
+.process-timeline {
+  position: relative;
+  max-width: 980px;
+  margin: 3.5rem auto 0;
+  padding: 1rem 0 2rem;
+}
+
+/* ── Central Stem Line ───────────────────────────── */
+
+.timeline-central-stem {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 2rem;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.timeline-stem-track {
+  position: absolute;
+  inset: 0;
+  background: var(--border-subtle);
+  border-radius: 9999px;
+}
+
+.timeline-stem-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, var(--accent) 0%, rgba(var(--accent-rgb), 0.4) 100%);
+  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.35);
+  border-radius: 9999px;
+  transition: height 0.6s var(--spring-smooth);
+}
+
+/* ── Steps List ──────────────────────────────────── */
+
+.timeline-steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-step-item {
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  align-items: center;
+  position: relative;
+  opacity: 0.3;
+  transform: translateY(22px) scale(0.98);
+  transition: opacity 650ms var(--ease-out),
+              transform 650ms var(--ease-out);
+}
+
+.timeline-step-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Center Node Anchor & Circle ─────────────────── */
+
+.timeline-node-anchor {
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.timeline-node-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all var(--duration-normal) var(--ease-out);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.timeline-node-num {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: -0.02em;
+  transition: color var(--duration-normal) var(--ease-out);
+}
+
+.timeline-step-item.is-active .timeline-node-circle {
+  border-color: var(--accent);
+  background: rgba(var(--surface-rgb), 0.95);
+  box-shadow: 0 0 16px rgba(var(--accent-rgb), 0.25);
+}
+
+.timeline-step-item.is-active .timeline-node-num {
+  color: var(--accent);
+}
+
+.timeline-step-item.is-current .timeline-node-circle {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  box-shadow: 0 0 24px rgba(var(--accent-rgb), 0.45);
+  transform: scale(1.08);
+}
+
+.node-glow-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0.6;
+  animation: nodePulse 2.4s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes nodePulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  70% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* ── Alternating Cards Layout ────────────────────── */
+
+/* Left Step (Even items) */
+.timeline-step-item.step-left .timeline-card-wrapper {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.timeline-step-item.step-left .timeline-connector-arm {
+  position: absolute;
+  right: -20px;
+  width: 20px;
+  height: 1px;
+  background: var(--border-subtle);
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+.timeline-step-item.step-left.is-active .timeline-connector-arm {
+  background: var(--accent);
+}
+
+/* Right Step (Odd items) */
+.timeline-step-item.step-right .timeline-card-wrapper {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.timeline-step-item.step-right .timeline-connector-arm {
+  position: absolute;
+  left: -20px;
+  width: 20px;
+  height: 1px;
+  background: var(--border-subtle);
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+.timeline-step-item.step-right.is-active .timeline-connector-arm {
+  background: var(--accent);
+}
+
+/* ── Card Styling ────────────────────────────────── */
+
+.timeline-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.4);
+  transition: border-color var(--duration-normal) var(--ease-out),
+              background var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.timeline-step-item.is-active .timeline-card {
+  border-color: rgba(var(--accent-rgb), 0.25);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.03) 0%, var(--bg-card) 100%);
+}
+
+.timeline-step-item.is-current .timeline-card {
+  border-color: var(--accent);
+  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--accent-rgb), 0.1);
+}
+
+.timeline-card-header {
+  margin-bottom: 0.6rem;
+}
+
+.timeline-phase-tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  transition: color var(--duration-normal) var(--ease-out);
+}
+
+.timeline-step-item.is-active .timeline-phase-tag {
+  color: var(--accent);
+}
+
+.timeline-step-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.timeline-step-description {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin: 0;
+  transition: color var(--duration-normal) var(--ease-out);
+}
+
+.timeline-step-item.is-active .timeline-step-description {
+  color: var(--color-highlight);
+}
+
+/* ── Responsive Mobile Timeline ──────────────────── */
+
+@media (max-width: 768px) {
+  .process-timeline {
+    margin-top: 2rem;
+    padding-left: 0;
+  }
+
+  .timeline-central-stem {
+    left: 20px;
+    transform: none;
+  }
+
+  .timeline-steps-list {
+    gap: 2.25rem;
+  }
+
+  .timeline-step-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .timeline-node-anchor {
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+  }
+
+  .timeline-node-circle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .timeline-card-wrapper {
+    flex: 1;
+    width: auto;
+    position: static;
+  }
+
+  .timeline-step-item.step-left .timeline-card-wrapper,
+  .timeline-step-item.step-right .timeline-card-wrapper {
+    justify-content: flex-start;
+  }
+
+  .timeline-connector-arm {
+    display: none;
+  }
+
+  .timeline-card {
+    max-width: 100%;
+    padding: 1.25rem 1.25rem;
+  }
+
+  .timeline-step-title {
+    font-size: var(--text-lg);
+  }
+}
+
+/* ── Accessibility: Reduced Motion ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-step-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .timeline-node-circle {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .node-glow-pulse {
+    animation: none !important;
+    display: none;
+  }
+
+  .timeline-stem-progress {
+    transition: none !important;
+  }
+}
+
+.timeline-card{position:relative}.timeline-explore{position:absolute;inset:0;border-radius:inherit;z-index:1}.timeline-explore:focus-visible{outline:2px solid var(--accent)}
+.timeline-step-item:not(.is-current) .timeline-step-description{display:none}.timeline-step-item.is-current .timeline-card{transform:translateY(-2px)}
+.timeline-node-anchor,.timeline-card-wrapper{grid-row:1}.node-glow-pulse{display:none}
+@media(prefers-reduced-motion:reduce){.timeline-step-item.is-current .timeline-card{transform:none}}

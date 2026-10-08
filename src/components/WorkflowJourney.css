@@ -1,0 +1,311 @@
+﻿/* ── Workflow Journey / Process Section ───────────────────── */
+
+.workflow-journey {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(480px, 1.35fr);
+  gap: clamp(32px, 3.5vw, 48px);
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Labels ───────────────────────────────────────────────── */
+
+.workflow-label {
+  display: block;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--theme-accent);
+  line-height: 1.2;
+}
+
+/* ── Left Column: Nav ─────────────────────────────────────── */
+
+.workflow-nav {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.workflow-nav > .workflow-label {
+  margin-bottom: 12px;
+}
+
+.workflow-nav ol.workflow-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.workflow-nav li {
+  width: 100%;
+}
+
+.workflow-choice {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  padding: 0 22px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  text-align: left;
+  color: var(--theme-text-body);
+  background: var(--bg-card);
+  font: inherit;
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-weight: 600;
+  font-size: 14.5px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: transform 0.38s ease, box-shadow 0.35s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.workflow-index {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--theme-accent);
+  min-width: 32px;
+  flex-shrink: 0;
+}
+
+.workflow-title {
+  flex: 1;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: inherit;
+}
+
+.workflow-arrow {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 17px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.workflow-choice.is-current {
+  color: var(--theme-text-heading);
+  background: rgba(var(--theme-glow-violet-rgb), 0.22);
+  border-color: var(--theme-accent);
+  box-shadow: 0 4px 20px rgba(var(--theme-glow-violet-rgb), 0.25);
+}
+
+.workflow-choice.is-current .workflow-arrow {
+  color: var(--theme-accent);
+  transform: translate(2px, -2px);
+}
+
+.workflow-end {
+  margin-top: 18px;
+  color: var(--text-muted);
+}
+
+/* ── Right Column: Active Process Detail Card ─────────────── */
+
+.workflow-panel {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 24px;
+  padding: 34px 38px;
+  min-height: 440px;
+  overflow: visible;
+  box-sizing: border-box;
+  transition: transform 0.38s ease, box-shadow 0.35s ease, border-color 0.25s ease;
+  margin-top: 25px; /* Aligns top border of card with top border of 01 Discover */
+}
+
+.workflow-panel-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.workflow-panel-icon {
+  color: var(--theme-accent);
+}
+
+.workflow-ghost {
+  position: absolute;
+  right: 28px;
+  top: 40px;
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: 170px;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(var(--theme-glow-violet-rgb), 0.08);
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.workflow-copy {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 230px;
+  animation: workflow-in 0.25s ease;
+}
+
+.workflow-copy h3 {
+  font-family: var(--font-display, 'Manrope', sans-serif);
+  font-size: clamp(26px, 2.5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--theme-text-heading);
+  margin-bottom: 12px;
+}
+
+.workflow-copy p {
+  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-size: 15.5px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--theme-text-body);
+  margin-bottom: 22px;
+  max-width: 520px;
+}
+
+.workflow-focus-area {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.workflow-focus-area .workflow-label {
+  margin-bottom: 10px;
+}
+
+.workflow-focus-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workflow-focus-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--theme-text-body);
+}
+
+.workflow-focus-list li svg {
+  color: var(--theme-accent);
+  flex-shrink: 0;
+}
+
+.workflow-panel-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.workflow-progress {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  max-width: 140px;
+}
+
+.workflow-progress span {
+  height: 3px;
+  flex: 1;
+  border-radius: 4px;
+  background: var(--border-subtle);
+  transition: background 0.3s ease;
+}
+
+.workflow-progress span.done {
+  background: var(--theme-accent);
+}
+
+.workflow-choice:focus-visible,
+.workflow-panel:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 3px;
+}
+
+@keyframes workflow-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Responsive Behavior ──────────────────────────────────── */
+
+@media (max-width: 860px) {
+  .workflow-journey {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .workflow-panel {
+    margin-top: 0;
+    min-height: auto;
+    padding: 28px;
+  }
+
+  .workflow-ghost {
+    font-size: 120px;
+    top: 20px;
+    right: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .workflow-choice {
+    height: 56px;
+    padding: 0 16px;
+    font-size: 13.5px;
+  }
+
+  .workflow-panel {
+    padding: 24px 18px;
+  }
+
+  .workflow-copy h3 {
+    font-size: 24px;
+  }
+
+  .workflow-copy p {
+    font-size: 14.5px;
+  }
+
+  .workflow-panel-bottom {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workflow-copy {
+    animation: none;
+  }
+}

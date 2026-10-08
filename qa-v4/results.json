@@ -1,0 +1,45 @@
+{
+  "errors": [],
+  "checks": {
+    "font": true,
+    "specularCanvas": 1,
+    "cardScale": {
+      "width": 1360,
+      "height": 650
+    },
+    "nextService": "UI/UX & Conversion Optimization",
+    "maskedText": "UI/UX DESIGN",
+    "keyboardService": "SEO & Digital Marketing",
+    "workflow": "Design & Build",
+    "glowNear": "0.9970712931914274",
+    "glowCenter": "0",
+    "footerFont": "Syne, sans-serif",
+    "services": {
+      "overflow": false,
+      "h1": "Everything your business needs to get found, earn trust, and grow.",
+      "secondary": "#D8CCFA"
+    },
+    "work": {
+      "overflow": false,
+      "h1": "Our work",
+      "secondary": "#D8CCFA"
+    },
+    "about": {
+      "overflow": false,
+      "h1": "A freelance community that builds what businesses actually need.",
+      "secondary": "#D8CCFA"
+    },
+    "contact": {
+      "overflow": false,
+      "h1": "Start a Project with ResolveOPS",
+      "secondary": "#D8CCFA"
+    },
+    "rova": 1,
+    "mobileOverflow": false,
+    "reduced": {
+      "fallback": 1,
+      "specularCanvases": 0,
+      "service": "UI/UX & Conversion Optimization"
+    }
+  }
+}

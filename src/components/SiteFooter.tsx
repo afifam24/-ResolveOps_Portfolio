@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { ArrowUp, EnvelopeSimple } from '@phosphor-icons/react';
+﻿import { Link } from 'react-router-dom';
+import { ArrowUp, EnvelopeSimple, InstagramLogo } from '@phosphor-icons/react';
 import { brand, navigation, projects } from '../data/content';
 import Reveal from './Reveal';
 import './SiteFooter.css';
@@ -11,9 +11,9 @@ export default function SiteFooter() {
 
   return (
     <footer className="site-footer" role="contentinfo">
-      {/* Background Watermark Layer */}
+      {/* Background Watermark Layer - subtle integrated background watermark */}
       <div className="footer-watermark" aria-hidden="true">
-        RESOLVEOPS
+        ResolveOPS
       </div>
 
       <div className="container footer-inner">
@@ -68,10 +68,26 @@ export default function SiteFooter() {
             {/* Column 4: CONTACT */}
             <div className="footer-col">
               <h4 className="footer-col-title">CONTACT</h4>
-              <a href={`mailto:${brand.email}`} className="footer-email">
-                <EnvelopeSimple size={16} weight="bold" />
-                <span>{brand.email}</span>
-              </a>
+              <ul className="footer-links">
+                <li>
+                  <a href={`mailto:${brand.email}`} className="footer-email">
+                    <EnvelopeSimple size={16} weight="bold" />
+                    <span>{brand.email}</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/resolveops.growthstudio/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-email"
+                    aria-label="Instagram"
+                  >
+                    <InstagramLogo size={16} weight="bold" />
+                    <span>Instagram</span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </Reveal>
@@ -87,7 +103,7 @@ export default function SiteFooter() {
             onClick={scrollToTop}
             aria-label="Back to top"
           >
-            <ArrowUp size={16} weight="bold" />
+            <ArrowUp size={15} weight="bold" />
             <span>Back to top</span>
           </button>
         </div>

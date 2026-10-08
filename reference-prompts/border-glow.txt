@@ -1,0 +1,762 @@
+MASTER PROMPT — REWORK RESOLVEOPS BORDER GLOW USING REACT BITS REFERENCE
+
+I am NOT satisfied with the current BorderGlow implementation across my ResolveOPS portfolio.
+
+The current Contact page looks visually odd because the glow is behaving like a large colored light/spotlight inside the card instead of a subtle edge-reactive border effect.
+
+I want you to completely refine how BorderGlow is used across the portfolio.
+
+REFERENCE:
+
+Use this React Bits Border Glow component as the visual and interaction reference:
+
+https://reactbits.dev/components/border-glow
+
+The uploaded React Bits reference/code is also available in the project context.
+
+IMPORTANT:
+Do not redesign the entire website.
+Do not change the existing page structure unnecessarily.
+Do not replace the current visual identity.
+Do not introduce new random effects.
+
+The goal is:
+
+SUBTLE EDGE GLOW
++
+PREMIUM CARD INTERACTION
++
+CLEAN DARK UI
++
+CURSOR RESPONSIVENESS
+
+The BorderGlow should feel like a refined interaction layer, not a visual decoration pasted on every card.
+
+--------------------------------------------------
+1. FIRST — UNDERSTAND THE PROBLEM
+--------------------------------------------------
+
+The current implementation has too much visible glow inside the cards.
+
+For example, on the Contact page:
+
+- the large circular glow inside the form is too strong
+- the interior of the card becomes visually illuminated
+- the form fields compete with the glow
+- the glow becomes the main visual element
+- the design feels distracting and less professional
+
+This must be fixed.
+
+The glow should primarily appear around the CARD EDGE.
+
+The card interior should remain clean and readable.
+
+--------------------------------------------------
+2. USE REACT BITS BORDER GLOW AS THE REFERENCE
+--------------------------------------------------
+
+Use the React Bits BorderGlow implementation and behavior as the reference.
+
+The important behavior is:
+
+The cursor approaches the edge
+→ the nearest border area reacts
+→ a localized glow appears
+→ the glow follows the pointer position
+→ the interior remains mostly unchanged
+→ cursor moves away
+→ glow fades smoothly
+
+Do NOT turn the effect into:
+
+- a spotlight
+- a large radial light
+- a center glow
+- a giant aura
+- a colorful blob
+- a permanent gradient
+- an animated background
+
+The interaction must remain edge-focused.
+
+--------------------------------------------------
+3. IMPORTANT — REDUCE INTERIOR GLOW
+--------------------------------------------------
+
+This is the highest-priority fix.
+
+The current implementation uses too much internal glow/fill.
+
+Reduce or disable the interior color fill so that:
+
+THE CARD SURFACE REMAINS CLEAN.
+
+The BorderGlow should mostly affect:
+
+- border
+- immediate edge
+- very subtle outer glow
+
+Avoid strong light inside the entire card.
+
+The user should notice the edge responding, not a bright orb appearing inside the card.
+
+--------------------------------------------------
+4. RECOMMENDED BASE CONFIGURATION
+--------------------------------------------------
+
+Use this as the baseline:
+
+edgeSensitivity={30}
+
+glowRadius={24}
+
+glowIntensity={0.55}
+
+coneSpread={18}
+
+animated={false}
+
+Use a restrained background fill.
+
+Do NOT blindly use the React Bits example's strongest visual values.
+
+Tune the component for the ResolveOPS portfolio.
+
+The effect should feel premium and subtle.
+
+--------------------------------------------------
+5. BORDER GLOW COLORS
+--------------------------------------------------
+
+Use the current ResolveOPS color system:
+
+BACKGROUND
+#0B0D10
+
+SURFACE
+#151922
+
+CARD
+#1D2230
+
+PRIMARY BRAND
+#8B5CF6
+
+TECH ACCENT
+#22D3EE
+
+SOFT VIOLET
+#C4B5FD
+
+PRIMARY TEXT
+#F5F7FA
+
+MUTED TEXT
+#9CA3AF
+
+Use these for the glow system.
+
+Recommended colors:
+
+colors={[
+  '#8B5CF6',
+  '#22D3EE',
+  '#C4B5FD'
+]}
+
+Do NOT use the older:
+
+#c084fc
+#f472b6
+#38bdf8
+
+unless there is a very specific reason.
+
+The new ResolveOPS palette should be consistent throughout the site.
+
+--------------------------------------------------
+6. IMPORTANT — GLOW MUST FOLLOW THE CURSOR
+--------------------------------------------------
+
+The glow should be directional.
+
+Example:
+
+Cursor near top-left corner
+→ top-left border glows
+
+Cursor near right edge
+→ right edge glows
+
+Cursor near bottom
+→ bottom edge glows
+
+Cursor moves
+→ glow moves with it
+
+Cursor leaves
+→ glow fades out
+
+This directional edge response is the key interaction.
+
+--------------------------------------------------
+7. DO NOT MAKE THE WHOLE BORDER GLOW
+--------------------------------------------------
+
+When the user hovers a card:
+
+Do NOT make the entire border uniformly bright.
+
+Only the region nearest the cursor should become prominent.
+
+This is one of the most important differences between:
+
+GOOD:
+React Bits style edge tracking
+
+BAD:
+generic glowing border
+
+--------------------------------------------------
+8. REMOVE THE "CENTER SPOTLIGHT" LOOK
+--------------------------------------------------
+
+The current Contact form has a very visible circular light around the form field.
+
+REMOVE THAT BEHAVIOR.
+
+The form should NOT look like:
+
+large purple circle
++
+cyan circle
++
+bright center
+
+Instead:
+
+The form card remains dark.
+
+The border reacts only where the pointer is close to it.
+
+--------------------------------------------------
+9. CONTACT PAGE — SPECIAL TREATMENT
+--------------------------------------------------
+
+The Contact page must be especially restrained.
+
+The main form container should NOT have a large internal glow.
+
+Use:
+
+Card background:
+#151922 or #1D2230
+
+Border:
+very subtle neutral border
+
+Hover:
+localized violet/cyan edge glow
+
+Form inputs:
+clean dark surfaces
+
+Focus:
+subtle violet focus border
+
+The form content must remain the visual priority.
+
+The user should easily read:
+
+YOUR NAME
+EMAIL ADDRESS
+PROJECT BUDGET
+PROJECT TYPE
+MESSAGE
+
+without the glow interfering with readability.
+
+--------------------------------------------------
+10. SERVICES
+--------------------------------------------------
+
+Apply the BorderGlow to the service cards.
+
+But keep the service cards clean.
+
+On hover:
+
+- edge glow appears
+- card lifts slightly
+- active service becomes more prominent
+- existing expansion behavior remains
+
+Do NOT add a large internal light.
+
+Do NOT make all service cards glow at once.
+
+Only the interacted card should respond.
+
+--------------------------------------------------
+11. WORK / PROJECT CARDS
+--------------------------------------------------
+
+Apply the same refined BorderGlow to project cards.
+
+Interaction:
+
+cursor approaches edge
+→ localized edge glow
+
+Then:
+
+- very subtle card lift
+- image slight scale
+- CTA arrow subtle movement
+
+Do NOT add a large background glow.
+
+Do NOT make the project image washed out.
+
+--------------------------------------------------
+12. PROCESS CARDS
+--------------------------------------------------
+
+Apply the same BorderGlow style to actual boxed process elements.
+
+Keep it subtle.
+
+The active process card may have:
+
+- slightly stronger edge glow
+- slight elevation
+- better text contrast
+
+But do not make the entire process section glow.
+
+--------------------------------------------------
+13. ABOUT / FEATURE CARDS
+--------------------------------------------------
+
+Only apply BorderGlow to real card/surface elements.
+
+Do not wrap plain text sections unnecessarily.
+
+Do not convert every container into a glowing card.
+
+--------------------------------------------------
+14. RØVA
+--------------------------------------------------
+
+RØVA can have BorderGlow, but use an even more subtle version.
+
+RØVA launcher:
+
+- tiny edge glow
+- subtle lift
+- slight hover response
+
+RØVA panel:
+
+- restrained edge glow
+- no huge internal colored light
+- no bright spotlight
+
+RØVA should feel premium and native to ResolveOPS.
+
+--------------------------------------------------
+15. CTA BUTTONS
+--------------------------------------------------
+
+Do not use the full BorderGlow component for every small button.
+
+For small buttons:
+
+Use lightweight hover styles.
+
+Primary CTA:
+
+- slight lift
+- subtle violet glow
+- slight scale
+
+Secondary CTA:
+
+- border transition
+- subtle edge highlight
+
+Do not make buttons look neon.
+
+--------------------------------------------------
+16. ANTI-GRAVITY EFFECT
+--------------------------------------------------
+
+Keep the anti-gravity idea, but make it MUCH more subtle than the previous implementation.
+
+On hover:
+
+translateY(-2px to -4px)
+
+Optional:
+
+scale(1.005 to 1.01)
+
+No aggressive 3D rotation.
+
+No bouncing.
+
+No floating loop.
+
+The card should feel slightly lifted from the surface.
+
+When the pointer leaves:
+
+smoothly settle back.
+
+--------------------------------------------------
+17. THE GLOW SHOULD BE THE SECONDARY EFFECT
+--------------------------------------------------
+
+The interaction priority should be:
+
+1. Content
+2. Card hierarchy
+3. Cursor response
+4. Edge glow
+
+NOT:
+
+1. Glow
+2. Glow
+3. Glow
+4. Content
+
+The user should never feel that the glow is fighting the design.
+
+--------------------------------------------------
+18. BORDER RADIUS
+--------------------------------------------------
+
+Preserve the existing ResolveOPS design language.
+
+Use approximately:
+
+24px–28px
+
+for large cards.
+
+Do not randomly change all existing card radii.
+
+--------------------------------------------------
+19. SHADOWS
+--------------------------------------------------
+
+Use subtle depth.
+
+Do not use extremely large shadows.
+
+The card should look like it is slightly lifted, not floating 100px above the page.
+
+--------------------------------------------------
+20. DO NOT ADD EXTRA GRADIENTS
+--------------------------------------------------
+
+Do not add:
+
+- large radial gradients
+- background gradients
+- glassmorphism
+- bloom effects
+- neon fog
+- colorful ambient blobs
+
+The React Bits border treatment itself is enough.
+
+--------------------------------------------------
+21. KEEP THE EXISTING PALETTE
+--------------------------------------------------
+
+Do not change the current chosen ResolveOPS palette again.
+
+Use:
+
+#0B0D10
+#151922
+#1D2230
+#8B5CF6
+#22D3EE
+#C4B5FD
+#F5F7FA
+#9CA3AF
+
+The previous purple/plum palette should not return.
+
+--------------------------------------------------
+22. RESPONSIVE BEHAVIOR
+--------------------------------------------------
+
+Desktop:
+
+Use full cursor edge tracking.
+
+Tablet:
+
+Use reduced glow intensity.
+
+Mobile:
+
+Disable cursor-following edge calculations because there is no hover cursor.
+
+Instead:
+
+- normal card surface
+- subtle touch/active feedback
+- no continuous glow
+
+Do not run expensive pointer logic unnecessarily on mobile.
+
+--------------------------------------------------
+23. ACCESSIBILITY
+--------------------------------------------------
+
+Respect:
+
+prefers-reduced-motion: reduce
+
+For reduced motion:
+
+- remove card lift
+- reduce glow transitions
+- keep focus states
+- preserve keyboard interaction
+
+Do not replace accessible focus indicators with glow.
+
+--------------------------------------------------
+24. PERFORMANCE
+--------------------------------------------------
+
+The portfolio already uses:
+
+- GSAP
+- ScrollTrigger
+- React Three Fiber
+- WebGL
+- interactive components
+
+Do not add expensive animation systems.
+
+Use the existing BorderGlow implementation.
+
+Use CSS variables and transform/opacity where possible.
+
+Avoid React state updates for every mousemove if they are not necessary.
+
+Do not create unnecessary re-renders.
+
+--------------------------------------------------
+25. IMPORTANT — APPLY GLOBALLY, BUT WITH JUDGMENT
+--------------------------------------------------
+
+Review every page:
+
+HOME
+SERVICES
+WORK
+ABOUT
+CONTACT
+
+Find genuine:
+
+- cards
+- panels
+- interactive surfaces
+- selectable boxes
+- project cards
+- service cards
+- process cards
+- CTA surfaces
+
+Apply the refined BorderGlow system where it makes visual sense.
+
+Do NOT apply it blindly to every container.
+
+Different components can have slightly different intensity.
+
+--------------------------------------------------
+26. PAGE-SPECIFIC INTENSITY
+--------------------------------------------------
+
+HOME:
+
+Medium subtle glow
+
+SERVICES:
+
+Medium glow
+
+WORK:
+
+Medium subtle glow
+
+ABOUT:
+
+Low subtle glow
+
+CONTACT:
+
+Very low subtle glow
+
+RØVA:
+
+Low subtle glow
+
+This keeps the site visually balanced.
+
+--------------------------------------------------
+27. BORDER GLOW SHOULD FEEL LIKE A SIGNATURE
+--------------------------------------------------
+
+The final design should make people notice:
+
+"the interface reacts to my cursor"
+
+rather than:
+
+"this website has a glowing border effect."
+
+This distinction is extremely important.
+
+The interaction should feel intentional and sophisticated.
+
+--------------------------------------------------
+28. DO NOT REMOVE CURRENT COMPONENTS WITHOUT A REASON
+--------------------------------------------------
+
+Reuse the current BorderGlow component if it exists.
+
+Reuse the existing:
+
+- service architecture
+- project cards
+- process cards
+- contact form
+- RØVA
+- GSAP interactions
+
+Modify them cleanly.
+
+Do not duplicate the entire architecture.
+
+--------------------------------------------------
+29. FIX THE CONTACT PAGE FIRST
+--------------------------------------------------
+
+Before applying the system everywhere:
+
+FIRST fix the Contact page.
+
+Make sure the large internal purple/cyan spotlight is removed.
+
+The final Contact card should look approximately like:
+
+dark clean surface
++
+subtle border
++
+small localized edge glow near cursor
+
+NOT:
+
+large colorful glow inside the card.
+
+Once the Contact version looks correct, propagate the same system to the other pages.
+
+--------------------------------------------------
+30. FINAL VISUAL GOAL
+--------------------------------------------------
+
+The final portfolio should feel:
+
+DARK
++
+CLEAN
++
+PREMIUM
++
+TECHNICAL
++
+INTERACTIVE
+
+The BorderGlow should be:
+
+SUBTLE
+DIRECTIONAL
+CURSOR-RESPONSIVE
+EDGE-FOCUSED
+
+Never:
+
+LOUD
+CENTERED
+NEON
+DISTRACTING
+
+--------------------------------------------------
+31. FINAL VALIDATION
+--------------------------------------------------
+
+After implementation:
+
+Run:
+
+npm run build
+
+Fix every TypeScript and build error.
+
+Check all pages:
+
+Home
+Services
+Work
+About
+Contact
+
+Then verify:
+
+- BorderGlow follows cursor
+- glow remains near the edge
+- no giant internal spotlight
+- no full-card bright wash
+- text remains clear
+- forms remain readable
+- project images remain clear
+- service interaction still works
+- RØVA still works
+- navigation still works
+- mobile has no hover issues
+- no horizontal overflow
+- no console errors
+- reduced-motion works
+
+--------------------------------------------------
+FINAL RULES
+
+1. Use React Bits BorderGlow as the visual reference.
+2. Make the glow edge-focused.
+3. Remove the current large internal spotlight behavior.
+4. Keep the ResolveOPS palette.
+5. Keep the site dark and clean.
+6. Use violet + cyan only as controlled accents.
+7. Keep text highly readable.
+8. Do not overuse BorderGlow.
+9. Do not turn every container into a glowing card.
+10. Keep the anti-gravity effect subtle.
+11. Fix Contact first.
+12. Then apply the refined interaction system across the remaining pages.
+13. Preserve all existing functionality.
+14. Do not rebuild unrelated components.
+15. Run npm run build and fix all errors.
+16. Implement the changes directly, not just explain them.

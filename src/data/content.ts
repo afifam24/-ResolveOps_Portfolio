@@ -39,10 +39,11 @@ export const brand = {
   subtitle: 'Growth studio',
   tagline: 'We Design. We Develop. We Grow.',
   email: 'resolveops.growthstudio@gmail.com',
+  instagram: 'https://www.instagram.com/resolveops.growthstudio/',
   description:
     'A freelance community providing websites, design, digital marketing, automation, and analytics for businesses.',
   heroSubtext:
-    'Websites, design, automation, and analytics that help businesses get found, earn trust, and grow.',
+    'We build websites, automate everyday workflows, and turn business data into clear dashboards—helping businesses attract enquiries and run more efficiently.',
   footerDescription:
     'We bring design, development, marketing, automation, and analytics together — built around your business goals.',
   ctaEyebrow: 'HAVE A PROJECT IN MIND?',
@@ -201,22 +202,22 @@ export const projects: Project[] = [
     title: 'YMTA Dental Clinic',
     category: 'Website Development',
     description:
-      'A dental clinic website presenting treatments, clinic information, and appointment enquiry pathways.',
+      '**Status:** Project showcase\n**Objective:** Present treatments and clinic information clearly to prospective patients.\n**Constraints:** Required a fast, mobile-friendly design reflecting a professional healthcare environment.\n**Contribution:** Full design and development.\n**Features:** Interactive treatment sections, responsive layouts, and direct appointment enquiry pathways.\n**Outcome:** A professional web presence built for patient conversion.',
     url: 'https://ymta-dental-clinic-demo.vercel.app/',
-    urlLabel: 'Website demo',
-    image: '/projects/ymta-dental.jpg',
-    alt: 'YMTA Dental Clinic website showing the homepage with treatment information and appointment booking',
+    urlLabel: 'View project showcase',
+    image: '/projects/ymta-real.png',
+    alt: 'YMTA Dental Clinic live website homepage showing dental treatments and appointment booking in Coimbatore',
   },
   {
     id: 'sindhus-dental',
     title: "Sindhu's Multispeciality Dental Clinic",
     category: 'Website Development',
     description:
-      'A multispeciality dental clinic website with treatment information, clinic details, and appointment enquiry options.',
+      '**Status:** Delivered\n**Objective:** Create a comprehensive digital presence for a multispeciality clinic.\n**Constraints:** Needed to organize multiple specialized treatments into an intuitive navigation structure.\n**Contribution:** Full design and development.\n**Features:** Detailed service pages, clinic gallery, and integrated contact options.\n**Outcome:** A clean, accessible website that effectively communicates clinic expertise.',
     url: 'https://sindhus-multispeciality-dental-clin.vercel.app/',
-    urlLabel: 'View website',
-    image: '/projects/sindhus-dental.jpg',
-    alt: "Sindhu's Multispeciality Dental Clinic website showing treatments and clinic information",
+    urlLabel: 'View live website',
+    image: '/projects/sindhu-real.png',
+    alt: "Sindhu's Multispeciality Dental Clinic live website showing treatments and clinic information in Tiruppur",
   },
 ];
 

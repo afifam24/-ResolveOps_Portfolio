@@ -373,3 +373,5 @@
     display: none;
   }
 }
+
+.si-line{transition:color .5s ease,opacity .5s ease,transform .5s ease}.si-revealed .si-line:not(.si-line-active){color:var(--text-secondary)}.si-revealed .si-line-active{color:var(--color-highlight)}.si-accent-phrase,.accent-word{text-shadow:none!important}

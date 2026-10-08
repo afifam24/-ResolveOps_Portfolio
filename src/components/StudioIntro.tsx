@@ -1,3 +1,4 @@
+import { accentChannels } from '../lib/palette';
 import { useEffect, useRef, useState } from 'react';
 import './StudioIntro.css';
 
@@ -13,9 +14,11 @@ function useAtmosphereCanvas(
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    let redrawStatic = () => {};
     const resize = () => {
       canvas.width  = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
+      redrawStatic();
     };
     resize();
     const ro = new ResizeObserver(resize);
@@ -37,7 +40,7 @@ function useAtmosphereCanvas(
     const MAX_CONNECT_DIST = 110;
     const POINTER_RADIUS   = 80;   // px — area where pointer affects particles
     const MAX_PUSH         = 8;    // max displacement in px from pointer
-    const A: [number, number, number] = [54, 224, 208];
+    const A = accentChannels();
     const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
     const makeDot = (w: number, h: number): Dot => {
@@ -48,7 +51,7 @@ function useAtmosphereCanvas(
         vx: rand(-0.15, 0.15),
         vy: rand(-0.12, 0.12),
         size: rand(1.0, 2.2),
-        alpha: 0,
+        alpha: prefersReduced ? .5 : 0,
         alphaTarget: rand(0.40, 0.90),
         alphaSpeed: rand(0.003, 0.008),
         flickerTimer: rand(0, 200),
@@ -177,9 +180,10 @@ function useAtmosphereCanvas(
       ctx.shadowBlur = 0;
       ctx.shadowColor = 'transparent';
 
-      raf = requestAnimationFrame(draw);
+      if (!prefersReduced) raf = requestAnimationFrame(draw);
     };
 
+    redrawStatic = () => { if (prefersReduced) draw(); };
     draw();
     return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, [canvasRef, pointerRef]);
@@ -211,6 +215,16 @@ export default function StudioIntro() {
   const pointerRef = useRef<{ x: number; y: number }>({ x: -1, y: -1 });
 
   useAtmosphereCanvas(canvasRef, pointerRef);
+
+  useEffect(() => {
+    const lines = contentRef.current?.querySelectorAll('.si-line');
+    if (!lines) return;
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => entry.target.classList.toggle('si-line-active', entry.isIntersecting));
+    }, { rootMargin: '-15% 0px -25% 0px', threshold: .5 });
+    lines.forEach(line => observer.observe(line));
+    return () => observer.disconnect();
+  }, []);
 
   // ── Reveal observer ──────────────────────────────────────
   useEffect(() => {
@@ -319,10 +333,7 @@ export default function StudioIntro() {
             </h2>
 
             <p className="si-body">
-              ResolveOPS is a freelance community that works with businesses at every stage
-              of their digital journey. Whether you're launching your first website or scaling
-              with automation and analytics, our team handles the technical work so you can
-              focus on running your business.
+              ResolveOPS is a technology and growth studio building <strong>websites, automations and reporting tools</strong> around practical business needs. We handle the technical work so you can focus on running your business.
             </p>
           </div>
 

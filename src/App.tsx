@@ -1,9 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
-import GlowPointer from './components/GlowPointer';
+import BorderGlow from './components/BorderGlow';
+import SpecularButtons from './components/SpecularButtons';
+
+import WelcomeOrbLoader from './components/WelcomeOrbLoader';
+import RovaChat from './components/RovaChat';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Work from './pages/Work';
@@ -11,6 +15,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 import './index.css';
+import './theme-v3.css';
+import './theme-v4.css';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,23 +42,36 @@ function PageTitleUpdater() {
 }
 
 export default function App() {
+  // Play on initial page load and refresh, without replaying on client-side routes.
+  const [showLoader, setShowLoader] = useState(true);
+  const handleLoaderComplete = () => setShowLoader(false);
+
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <PageTitleUpdater />
-      <GlowPointer />
-      <SiteHeader />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <SiteFooter />
-    </BrowserRouter>
+    <>
+      {showLoader && (
+        <WelcomeOrbLoader onComplete={handleLoaderComplete} />
+      )}
+      <div inert={showLoader} aria-hidden={showLoader ? true : undefined}>
+      <BrowserRouter>
+        <ScrollToTop />
+        <PageTitleUpdater />
+        <BorderGlow />
+        <SpecularButtons />
+        <SiteHeader />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <SiteFooter />
+        <RovaChat />
+      </BrowserRouter>
+      </div>
+    </>
   );
 }

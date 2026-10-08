@@ -3,6 +3,7 @@ import { ArrowRight } from '@phosphor-icons/react';
 import { brand, processSteps } from '../data/content';
 import Reveal from '../components/Reveal';
 import NetworkCanvas from '../components/NetworkCanvas';
+import ProcessTimeline from '../components/ProcessTimeline';
 import './About.css';
 
 export default function About() {
@@ -35,7 +36,7 @@ export default function About() {
         <div className="container">
           <div className="philosophy-grid">
             <Reveal>
-              <div className="philosophy-item">
+              <div className="philosophy-item" tabIndex={0}>
                 <h3 className="philosophy-number">We Design</h3>
                 <p className="philosophy-text">
                   Clear interfaces and visual systems that make your business easy to understand
@@ -46,7 +47,7 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={100}>
-              <div className="philosophy-item">
+              <div className="philosophy-item" tabIndex={0}>
                 <h3 className="philosophy-number">We Develop</h3>
                 <p className="philosophy-text">
                   Responsive websites, automated workflows, CRM systems, and custom tools —
@@ -57,7 +58,7 @@ export default function About() {
             </Reveal>
 
             <Reveal delay={200}>
-              <div className="philosophy-item">
+              <div className="philosophy-item" tabIndex={0}>
                 <h3 className="philosophy-number">We Grow</h3>
                 <p className="philosophy-text">
                   SEO, analytics, and marketing systems that bring the right people to your business
@@ -73,32 +74,19 @@ export default function About() {
       {/* How We Work */}
       <section className="section about-process" aria-label="How we work">
         <div className="container">
-          <Reveal>
-            <h2 className="about-section-title">How we approach every project</h2>
-          </Reveal>
-          <Reveal delay={80}>
-            <p className="about-section-subtitle">
-              Every project follows the same thoughtful structure — from the first conversation
-              to the work that happens after launch.
-            </p>
-          </Reveal>
-
-          <div className="about-process-list">
-            {processSteps.map((step, i) => (
-              <Reveal key={step.number} delay={i * 80}>
-                <div className="about-process-item">
-                  <div className="about-process-marker">
-                    <span className="about-process-number">{step.number}</span>
-                    {i < processSteps.length - 1 && <div className="about-process-line" />}
-                  </div>
-                  <div className="about-process-content">
-                    <h3 className="about-process-title">{step.title}</h3>
-                    <p className="about-process-text">{step.description}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          <div className="about-process-header">
+            <Reveal>
+              <h2 className="about-section-title">How we approach every project</h2>
+            </Reveal>
+            <Reveal delay={80}>
+              <p className="about-section-subtitle">
+                Every project follows the same thoughtful structure — from the first conversation
+                to the work that happens after launch.
+              </p>
+            </Reveal>
           </div>
+
+          <ProcessTimeline steps={processSteps} />
         </div>
       </section>
 

@@ -4,46 +4,102 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  background-color: #070314;
 }
 
-.digital-core-canvas {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 16px rgba(54, 224, 208, 0.12));
-}
+/* ── Base High-Fidelity Aurora Plate ──────────────── */
 
-.digital-core-canvas canvas {
-  pointer-events: auto; /* Allow interaction with the core */
-}
-
-.core-controls {
+.digital-core-bg-plate {
   position: absolute;
-  bottom: var(--space-md);
-  right: var(--space-md);
-  z-index: 10;
-  pointer-events: auto;
+  top: -2%;
+  left: -2%;
+  width: 104%;
+  height: 104%;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  opacity: 0.95;
+  will-change: transform;
+  animation: heroPlateBreathe 18s ease-in-out infinite alternate;
 }
 
-.digital-core-fallback {
+@keyframes heroPlateBreathe {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.025) translate3d(-0.4%, -0.3%, 0);
+  }
+  100% {
+    transform: scale(1.01) translate3d(0.4%, 0.3%, 0);
+  }
+}
+
+/* ── Deep Atmospheric Vignette & Contrast Overlay ─── */
+
+.digital-core-atmosphere {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: -1;
-  background: radial-gradient(circle at center, var(--bg-elevated) 0%, var(--bg-primary) 70%);
+  pointer-events: none;
+  background:
+    /* Central deep purple negative space to keep headline 100% readable */
+    radial-gradient(ellipse 55% 42% at 50% 48%, rgba(7, 3, 20, 0.72) 0%, rgba(7, 3, 20, 0.25) 60%, transparent 100%),
+    /* Soft ambient lighting highlights on flanks */
+    radial-gradient(circle at 12% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 88% 50%, rgba(167, 139, 250, 0.14) 0%, transparent 50%),
+    /* Bottom grounding shadow */
+    linear-gradient(to top, rgba(7, 3, 20, 0.85) 0%, transparent 22%);
 }
 
-.core-fallback-indicator {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 1px dashed var(--border-strong);
-  opacity: 0.3;
+/* ── Living 3D WebGL Canvas Layer ─────────────────── */
+
+.digital-core-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.digital-core-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: auto;
+}
+
+/* ── Controls ─────────────────────────────────────── */
+
+.core-controls {
+  position: absolute;
+  bottom: var(--space-md, 1.5rem);
+  left: var(--container-padding, 1.5rem);
+  right: auto;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.core-pause-btn {
+  font-size: var(--text-xs, 0.75rem);
+  opacity: 0.85;
+  transition: opacity var(--duration-fast, 150ms) var(--ease-out, ease-out);
+}
+
+.core-pause-btn:hover {
+  opacity: 1;
+}
+
+/* ── Reduced Motion Preference ────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .digital-core-bg-plate {
+    animation: none !important;
+  }
 }

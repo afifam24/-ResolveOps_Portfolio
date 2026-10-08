@@ -1,33 +1,42 @@
-# ResolveOPS Growth Studio — QA & Testing Report
+# QA — ResolveOPS Luminous v4
 
-## 1. Automated Browser Verification
-Testing was conducted using local preview (`http://localhost:5173/`) across responsive widths.
+Verified 7 October 2026 with Chromium automation and visual screenshot inspection.
 
-### 1.1 Desktop (1920px)
-- **Digital Core Background**: The WebGL scene successfully rendered behind the Hero section, displaying 4 interconnected nodes. 
-- **Hero Interaction**: The "Pause Core" control responded correctly to clicks, freezing the animation loop.
-- **Service Stage**: The scroll-driven curved GSAP-style arrangement functioned properly, presenting cards cleanly on an offset 3D arc.
-- **Contact Form**: The `mailto:` fallback layout displayed without issues. Form fields (Name, Email, Project Details) rendered appropriately with Manrope font and the updated `#11161C` surface colors.
+## Requested changes
 
-### 1.2 Tablet (768px)
-- Layout adjusted successfully.
-- The Digital Core scaled correctly without obscuring typography.
-- Service Stage adapted gracefully.
+- Enlarged carousel viewport: 1360 × 650px at the desktop test size, with larger card planes.
+- Six service selections drive both the details and the masked background title.
+  Next selects UI/UX; the right arrow selects SEO; horizontal drag selects UI/UX.
+- Normal vertical wheel scrolling does not change the selected service.
+- Desktop-to-mobile resizing preserves the gallery position after the resize fix.
+- Body and secondary copy use lavender #D8CCFA; muted labels use #BAA6E5.
+- Syne display font is loaded locally and verified. Footer wordmark fits within 1440px.
+- Specular shine uses one shared OGL canvas and the supplied SDF shaders.
+  Pointer proximity/angle changes the rim; all native button semantics remain in place.
+- Edge glow is approximately 0.997 near the tested workflow border and 0 at its center.
+  The screenshot shows the pearl highlight, violet falloff and clean panel interior.
+- Workflow selection displays Design & Build with its full description and focus items.
+  A mobile Test & Launch panel is also captured after selecting phase 04.
 
-### 1.3 Mobile (320px)
-- The Hero section typography scaled to standard mobile viewports.
-- The Service Stage seamlessly transformed into a vertical readable alternative for mobile accessibility.
+## Functional checks
 
-## 2. Accessibility & Performance
-- **Reduced Motion**: Fallback implemented (`prefers-reduced-motion` halts WebGL frameloop and transitions).
-- **Pixel Ratio Handling**: WebGL resolution bound to `dpr={[1, 2]}` to prevent high-DPI performance bottlenecks on mobile.
-- **Form Focus**: Managed via semantic HTML attributes (`htmlFor`, native browser outline using accent color `#36E0D0`).
-- **Semantic Tags**: Utilized `<section>`, `<header>`, `<footer>`, `<nav>`, and appropriate `aria-label`s for screen reader navigation.
+TypeScript and Vite production build pass. Home, Services, Work, About and Contact
+render without horizontal document overflow. At a 390px mobile viewport there is
+no horizontal overflow, the workflow selectors wrap, and the enlarged carousel fits.
+RØVA opens and returns a service response. Reduced motion switches the gallery to
+its static image fallback, removes the specular WebGL canvas and leaves service
+selection working. No browser JavaScript or console errors were recorded.
 
-## 3. Brand Compliance Verification
-- **Tagline**: “We Design. We Develop. We Grow.” - **Pass**
-- **Wordmark**: `RESOLVEOPS` is present in the footer - **Pass**
-- **Color System**: `#0B0D10` (Background), `#11161C` (Surface), `#36E0D0` (Primary Accent), `#7C6CFF` (Secondary Accent). - **Pass**
+The existing 3D scene reports a THREE.Clock deprecation warning. Vite reports large
+main/3D bundle warnings; they do not prevent the successful production build.
 
----
-*Verified on 2026-10-02 during final QA pass.*
+## Evidence
+
+qa-v4/results.json and final-checks.json contain the browser check outputs.
+qa-v4/ contains desktop and mobile screenshots of the gallery, buttons, border glow,
+workflow, contact form and corrected footer. Original business/service/project data
+is preserved; screenshots from v3 were removed to avoid confusing the releases.
+
+Mobile checks use a resized Chromium viewport; a physical phone was not tested.
+No live email was sent. Production hosting/email delivery and device-specific GPU
+failure are outside these checks. The implemented static WebGL fallback remains available.

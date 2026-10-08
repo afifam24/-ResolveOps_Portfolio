@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { ArrowRight, EnvelopeSimple } from '@phosphor-icons/react';
 import { brand, projects, processSteps } from '../data/content';
 import Reveal from '../components/Reveal';
@@ -8,18 +7,13 @@ import ServiceCardStage from '../components/ServiceCardStage';
 import ProjectCard from '../components/ProjectCard';
 import DigitalCore from '../components/DigitalCore';
 import StudioIntro from '../components/StudioIntro';
+import WorkflowJourney from '../components/WorkflowJourney';
 import './Home.css';
 
 export default function Home() {
-  // ── Connecting-line state ─────────────────────────────────
-  const [hoveredStep, setHoveredStep] = useState(-1);
-  // scaleX of the illuminated fill: 0 (none) → 1 (all 5 steps)
-  const connectorScale =
-    hoveredStep === -1 ? 0 : (hoveredStep + 1) / processSteps.length;
-
   return (
     <>
-      {/* ── Hero ─────────────────────────────────── */}
+      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="hero" aria-label="Hero">
         <DigitalCore />
         <div className="container hero-container">
@@ -64,18 +58,18 @@ export default function Home() {
         <div className="hero-gradient" aria-hidden="true" />
       </section>
 
-      {/* ── Studio Introduction ───────────────────── */}
+      {/* â”€â”€ Studio Introduction â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <StudioIntro />
 
-      {/* ── Services — Animated Stage ─────────────── */}
+      {/* â”€â”€ Services â€” Animated Stage â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <ServiceCardStage />
 
-      {/* ── Selected Work ─────────────────────────── */}
+      {/* â”€â”€ Selected Work â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="section work-section" aria-label="Selected work">
         <div className="container">
           <SectionHeading
             title="Selected work"
-            subtitle="Real projects, live websites — built for businesses that needed a clear, professional web presence."
+            subtitle="Real projects, live websites â€” built for businesses that needed a clear, professional web presence."
           />
           <div className="work-grid">
             {projects.map((project, i) => (
@@ -92,40 +86,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Process ───────────────────────────────── */}
+      {/* â”€â”€ Process â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="section process-section" aria-label="Our process">
         <div className="container">
           <SectionHeading
             title="How we work"
             subtitle="A focused process that moves from understanding to results."
+            centered
           />
-          <div className="process-grid">
-            {/* Connector line — rendered first so it paints behind the cards */}
-            <div className="process-connector" aria-hidden="true">
-              <div
-                className="process-connector-fill"
-                style={{ transform: `scaleX(${connectorScale.toFixed(4)})` }}
-              />
-            </div>
-
-            {processSteps.map((step, i) => (
-              <Reveal key={step.number} delay={i * 80} className="process-reveal">
-                <div
-                  className="process-step"
-                  onMouseEnter={() => setHoveredStep(i)}
-                  onMouseLeave={() => setHoveredStep(-1)}
-                >
-                  <span className="process-number">{step.number}</span>
-                  <h3 className="process-title">{step.title}</h3>
-                  <p className="process-description">{step.description}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <WorkflowJourney steps={processSteps} />
         </div>
       </section>
 
-      {/* ── Closing CTA ──────────────────────────── */}
+      {/* â”€â”€ Closing CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="section cta-section" aria-label="Get started">
         <div className="container cta-container">
           <Reveal>
@@ -148,3 +121,4 @@ export default function Home() {
     </>
   );
 }
+

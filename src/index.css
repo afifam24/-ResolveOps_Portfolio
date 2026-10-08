@@ -5,36 +5,80 @@
 
 /* ── CSS Custom Properties ───────────────────────── */
 :root {
-  /* Palette — Dark studio theme */
-  --bg-primary: #0B0D10;
-  --bg-raised: #11161C;
-  --bg-elevated: #161D24;
-  --bg-card: #11161C;
-  --bg-card-hover: #181F26;
+  /* Required Theme Variables */
+  --accent: #F5F3FF;
+  --accent-text: #0F0A24;
+  --glow-soft: 0 0 16px rgba(245, 243, 255, 0.4), 0 0 32px rgba(233, 229, 255, 0.22);
+  --glow-strong: 0 0 24px rgba(245, 243, 255, 0.65), 0 0 48px rgba(233, 229, 255, 0.35);
+
+  /* Core Theme Palette — Space Nebula / Night Sky */
+  --theme-bg-darkest: #0F0A24;
+  --theme-bg-darkest-rgb: 15, 10, 36;
+  --theme-bg-main: #1E0F3D;
+  --theme-bg-main-rgb: 30, 15, 61;
+  --theme-glow-pink: #8B2C8F;
+  --theme-glow-pink-rgb: 139, 44, 143;
+  --theme-glow-violet: #5B3FD0;
+  --theme-glow-violet-rgb: 91, 63, 208;
+  --theme-accent: #F5F3FF;
+  --theme-accent-rgb: 245, 243, 255;
+  --theme-lavender: #E9E5FF;
+  --theme-lavender-rgb: 233, 229, 255;
+  --theme-text-heading: #FFFFFF;
+  --theme-text-body: rgba(255, 255, 255, 0.85);
+
+  /* Derived Surface & Card Tints */
+  --theme-surface: rgba(30, 15, 61, 0.72);
+  --theme-surface-solid: #170D33;
+  --theme-card-bg: rgba(30, 15, 61, 0.65);
+  --theme-card-hover: rgba(91, 63, 208, 0.20);
+  --theme-input-bg: rgba(15, 10, 36, 0.75);
+
+  /* Transparent borders & subtle glows derived from palette */
+  --theme-border-subtle: rgba(91, 63, 208, 0.25);
+  --theme-border-medium: rgba(233, 229, 255, 0.25);
+  --theme-border-strong: rgba(245, 243, 255, 0.35);
+  --theme-glow-subtle: rgba(139, 44, 143, 0.18);
+  --theme-glow-accent: rgba(245, 243, 255, 0.25);
+
+  /* Mapped System Variables */
+  --color-bg: var(--theme-bg-darkest);
+  --color-surface: var(--theme-surface-solid);
+  --color-card: #231247;
+  --color-muted-accent: var(--theme-glow-violet);
+  --color-accent: var(--accent);
+  --color-highlight: var(--theme-text-heading);
+  --surface-rgb: var(--theme-bg-main-rgb);
+
+  /* Palette Mappings */
+  --bg-primary: var(--theme-bg-darkest);
+  --bg-raised: rgba(30, 15, 61, 0.45);
+  --bg-elevated: rgba(30, 15, 61, 0.75);
+  --bg-card: rgba(30, 15, 61, 0.65);
+  --bg-card-hover: var(--theme-card-hover);
 
   /* Text */
-  --text-primary: #F4F7F8;
-  --text-secondary: #9AA6B2;
-  --text-muted: #6B7A84;
-  --text-accent: #36E0D0;
+  --text-primary: var(--theme-text-heading);
+  --text-secondary: var(--theme-text-body);
+  --text-muted: rgba(255, 255, 255, 0.65);
+  --text-accent: var(--accent);
 
-  /* Accent */
-  --accent: #36E0D0;
-  --accent-rgb: 54, 224, 208;
-  --accent-secondary: #7C6CFF;
-  --highlight: #F2C879;
-  --accent-hover: #2BB6A8;
-  --accent-dim: rgba(54, 224, 208, 0.08);
-  --accent-glow: rgba(54, 224, 208, 0.15);
+  /* Accent & Hover */
+  --accent-rgb: var(--theme-accent-rgb);
+  --accent-secondary: var(--theme-glow-violet);
+  --highlight: var(--theme-text-heading);
+  --accent-hover: #FFFFFF;
+  --accent-dim: rgba(var(--accent-rgb), 0.12);
+  --accent-glow: rgba(var(--accent-rgb), 0.25);
 
   /* Cursor */
   --cursor-color: var(--accent);
-  --cursor-glow: rgba(54, 224, 208, 0.2);
+  --cursor-glow: rgba(var(--theme-lavender-rgb), 0.2);
 
   /* Borders */
-  --border-subtle: rgba(166, 177, 184, 0.1);
-  --border-medium: rgba(166, 177, 184, 0.18);
-  --border-strong: rgba(166, 177, 184, 0.3);
+  --border-subtle: var(--theme-border-subtle);
+  --border-medium: var(--theme-border-medium);
+  --border-strong: var(--theme-border-strong);
 
   /* Typography — Manrope */
   --font-display: 'Manrope', system-ui, -apple-system, sans-serif;
@@ -74,7 +118,7 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
-  --radius-xl: 20px;
+  --radius-xl: 26px;
   --radius-pill: 9999px;
 
   /* Transitions */
@@ -104,7 +148,7 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
   --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
-  --shadow-accent: 0 4px 24px rgba(185, 232, 209, 0.12);
+  --shadow-accent: 0 4px 24px rgba(var(--accent-rgb), 0.12);
 
   /* Nav */
   --nav-height: 72px;
@@ -133,7 +177,16 @@ body {
   font-size: var(--text-base);
   line-height: 1.65;
   color: var(--text-primary);
-  background-color: var(--bg-primary);
+  background-color: var(--theme-bg-darkest);
+  background-image: radial-gradient(
+    ellipse 80% 60% at 50% 30%,
+    rgba(var(--theme-glow-pink-rgb), 0.22) 0%,
+    rgba(var(--theme-glow-violet-rgb), 0.28) 35%,
+    var(--theme-bg-main) 68%,
+    var(--theme-bg-darkest) 100%
+  );
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   min-height: 100dvh;
   overflow-x: hidden;
 }
@@ -225,14 +278,18 @@ ul, ol {
 
 .btn-primary {
   background-color: var(--accent);
-  color: var(--bg-primary);
+  color: var(--accent-text);
   font-weight: 600;
+  border: 1px solid var(--accent);
+  box-shadow: var(--glow-soft);
 }
 
 .btn-primary:hover {
   background-color: var(--accent-hover);
-  box-shadow: var(--shadow-accent);
-  transform: translateY(-1px);
+  border-color: var(--accent-hover);
+  color: var(--accent-text);
+  box-shadow: var(--glow-strong);
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -295,7 +352,7 @@ ul, ol {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary);
+  background: var(--theme-bg-darkest);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -304,7 +361,7 @@ ul, ol {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--border-strong);
+  background: var(--theme-glow-violet);
 }
 
 /* ── Reduced Motion ────────────────────────────────── */
@@ -322,7 +379,7 @@ ul, ol {
 
 /* ── Utility Classes ───────────────────────────────── */
 
-.text-accent { color: var(--accent); }
+.text-accent { color: var(--accent); text-shadow: 0 0 16px rgba(245, 243, 255, 0.55), 0 0 32px rgba(233, 229, 255, 0.28); }
 .text-muted { color: var(--text-muted); }
 .text-secondary { color: var(--text-secondary); }
 
