@@ -1,6 +1,7 @@
-﻿/* ── Workflow Journey / Process Section ───────────────────── */
+/* ── Workflow Journey / Process Section ───────────────────── */
 
 .workflow-journey {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(280px, 0.85fr) minmax(480px, 1.35fr);
   gap: clamp(32px, 3.5vw, 48px);
@@ -29,6 +30,8 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .workflow-nav > .workflow-label {
@@ -59,13 +62,31 @@
   text-align: left;
   color: var(--theme-text-body);
   background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   font: inherit;
   font-family: var(--font-body, 'Manrope', sans-serif);
   font-weight: 600;
   font-size: 14.5px;
   cursor: pointer;
   box-sizing: border-box;
-  transition: transform 0.38s ease, box-shadow 0.35s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease,
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease;
+}
+
+.workflow-choice:hover {
+  background: rgba(35, 18, 70, 0.7);
+  border-color: rgba(233, 229, 255, 0.35);
+  box-shadow: 0 6px 20px rgba(10, 5, 25, 0.3), 0 0 16px rgba(91, 63, 208, 0.2);
+  transform: translateY(-2px);
+}
+
+.workflow-choice:hover .workflow-arrow {
+  transform: translate(3px, -3px);
+  color: var(--theme-accent);
 }
 
 .workflow-index {
@@ -89,19 +110,21 @@
   color: var(--text-muted);
   font-size: 17px;
   flex-shrink: 0;
-  transition: transform 0.25s ease, color 0.25s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
 }
+
+/* ── Active Step Highlight ────────────────────────────────── */
 
 .workflow-choice.is-current {
   color: var(--theme-text-heading);
-  background: rgba(var(--theme-glow-violet-rgb), 0.22);
-  border-color: var(--theme-accent);
-  box-shadow: 0 4px 20px rgba(var(--theme-glow-violet-rgb), 0.25);
+  background: linear-gradient(135deg, rgba(91, 63, 208, 0.32) 0%, rgba(45, 20, 85, 0.55) 100%);
+  border-color: rgba(233, 229, 255, 0.55);
+  box-shadow: 0 8px 24px rgba(10, 5, 25, 0.4), 0 0 24px rgba(91, 63, 208, 0.35), inset 0 1px 0 rgba(245, 243, 255, 0.25);
 }
 
 .workflow-choice.is-current .workflow-arrow {
   color: var(--theme-accent);
-  transform: translate(2px, -2px);
+  transform: translate(3px, -3px);
 }
 
 .workflow-end {
@@ -117,15 +140,36 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: var(--bg-card);
-  border: 1px solid var(--border-medium);
+  background: linear-gradient(135deg, rgba(30, 15, 61, 0.75) 0%, rgba(18, 9, 38, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(233, 229, 255, 0.25);
   border-radius: 24px;
   padding: 34px 38px;
   min-height: 440px;
   overflow: visible;
   box-sizing: border-box;
+  box-shadow: 0 16px 48px rgba(10, 5, 25, 0.5), 0 0 35px rgba(91, 63, 208, 0.22), inset 0 1px 0 rgba(245, 243, 255, 0.2);
   transition: transform 0.38s ease, box-shadow 0.35s ease, border-color 0.25s ease;
   margin-top: 25px; /* Aligns top border of card with top border of 01 Discover */
+}
+
+/* ── Gentle Violet Glow Behind Main Process Panel ─────────── */
+
+.workflow-panel::after {
+  content: "";
+  position: absolute;
+  inset: -15px;
+  background: radial-gradient(
+    ellipse 75% 65% at 50% 50%,
+    rgba(91, 63, 208, 0.28) 0%,
+    rgba(139, 44, 143, 0.15) 45%,
+    transparent 75%
+  );
+  filter: blur(45px);
+  z-index: -2;
+  pointer-events: none;
+  border-radius: 32px;
 }
 
 .workflow-panel-top {
@@ -135,30 +179,58 @@
   margin-bottom: 20px;
 }
 
+/* ── Consistent Outline Phase Icon Badge ──────────────────── */
+
+.workflow-panel-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(91, 63, 208, 0.18);
+  border: 1px solid rgba(233, 229, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme-accent);
+  box-shadow: 0 0 16px rgba(91, 63, 208, 0.22);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.workflow-panel:hover .workflow-panel-icon-wrap {
+  transform: scale(1.04);
+  box-shadow: 0 0 22px rgba(91, 63, 208, 0.38);
+  border-color: rgba(233, 229, 255, 0.4);
+}
+
 .workflow-panel-icon {
   color: var(--theme-accent);
 }
 
+/* ── Large Decorative Ghost Phase Number ──────────────────── */
+
 .workflow-ghost {
   position: absolute;
   right: 28px;
-  top: 40px;
-  font-family: var(--font-display, 'Manrope', sans-serif);
+  top: 35px;
+  font-family: var(--font-display, 'Syne', 'Manrope', sans-serif);
   font-size: 170px;
   font-weight: 800;
   line-height: 1;
-  color: rgba(var(--theme-glow-violet-rgb), 0.08);
+  color: rgba(var(--theme-glow-violet-rgb), 0.12);
+  text-shadow: 0 0 40px rgba(147, 112, 245, 0.2);
   z-index: -1;
   pointer-events: none;
   user-select: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+/* ── Content Transitions & Smooth Phase Changes ───────────── */
 
 .workflow-copy {
   display: flex;
   flex-direction: column;
   flex: 1;
   min-height: 230px;
-  animation: workflow-in 0.25s ease;
+  animation: workflow-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .workflow-copy h3 {
@@ -168,6 +240,7 @@
   letter-spacing: -0.03em;
   color: var(--theme-text-heading);
   margin-bottom: 12px;
+  animation: workflow-subtle 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .workflow-copy p {
@@ -178,11 +251,13 @@
   color: var(--theme-text-body);
   margin-bottom: 22px;
   max-width: 520px;
+  animation: workflow-subtle 0.35s 0.05s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .workflow-focus-area {
   margin-top: auto;
   padding-top: 8px;
+  animation: workflow-subtle 0.35s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .workflow-focus-area .workflow-label {
@@ -212,6 +287,30 @@
   flex-shrink: 0;
 }
 
+@keyframes workflow-in {
+  from {
+    opacity: 0.3;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes workflow-subtle {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Panel Bottom: Progress & Next Button ─────────────────── */
+
 .workflow-panel-bottom {
   display: flex;
   align-items: center;
@@ -221,6 +320,8 @@
   padding-top: 20px;
   border-top: 1px solid var(--border-subtle);
 }
+
+/* ── Progress Indicators with Multi-Tier Glow ─────────────── */
 
 .workflow-progress {
   display: flex;
@@ -233,29 +334,48 @@
   height: 3px;
   flex: 1;
   border-radius: 4px;
-  background: var(--border-subtle);
-  transition: background 0.3s ease;
+  background: rgba(233, 229, 255, 0.16);
+  transition: background 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  opacity: 0.35;
 }
 
+/* Completed phases appear brighter with soft lavender glow */
+.workflow-progress span.is-completed,
 .workflow-progress span.done {
-  background: var(--theme-accent);
+  background: var(--theme-lavender);
+  box-shadow: 0 0 8px rgba(233, 229, 255, 0.55);
+  opacity: 0.85;
+}
+
+/* Current active phase is brightest with full glow */
+.workflow-progress span.is-current {
+  background: #FFFFFF;
+  box-shadow: 0 0 12px rgba(245, 243, 255, 0.95), 0 0 22px rgba(91, 63, 208, 0.6);
+  opacity: 1;
+}
+
+/* ── Button Subtle Purple Hover Glow & Arrow Slide ────────── */
+
+.workflow-panel-bottom button {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.workflow-panel-bottom button:hover {
+  box-shadow: 0 0 22px rgba(91, 63, 208, 0.45), 0 0 12px rgba(147, 112, 245, 0.3);
+}
+
+.workflow-panel-bottom button svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.workflow-panel-bottom button:hover svg {
+  transform: translateX(4px);
 }
 
 .workflow-choice:focus-visible,
 .workflow-panel:focus-visible {
   outline: 2px solid var(--theme-accent);
   outline-offset: 3px;
-}
-
-@keyframes workflow-in {
-  from {
-    opacity: 0.4;
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* ── Responsive Behavior ──────────────────────────────────── */
@@ -304,8 +424,25 @@
   }
 }
 
+/* ── Reduced Motion Preference ────────────────────────────── */
+
 @media (prefers-reduced-motion: reduce) {
-  .workflow-copy {
+  .workflow-copy,
+  .workflow-copy h3,
+  .workflow-copy p,
+  .workflow-focus-area {
     animation: none;
+  }
+
+  .workflow-choice,
+  .workflow-arrow,
+  .workflow-panel-bottom button svg {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .workflow-choice:hover .workflow-arrow,
+  .workflow-panel-bottom button:hover svg {
+    transform: none !important;
   }
 }

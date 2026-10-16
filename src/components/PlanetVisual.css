@@ -1,0 +1,104 @@
+/* ── Planet Visual — Floating Glass Cards ────────────────── */
+
+.planet-visual-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+}
+
+.planet-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Glass Service Cards ──────────────────────────────────── */
+
+.planet-card {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(18, 8, 40, 0.74);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  border-top-color: rgba(233, 229, 255, 0.18);
+  border-radius: 16px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.50),
+    0 0 20px rgba(91, 63, 208, 0.20),
+    inset 0 1px 0 rgba(233, 229, 255, 0.10);
+  min-width: 152px;
+  max-width: 190px;
+  z-index: 4;
+  animation: planetCardFloat 6s ease-in-out infinite alternate;
+}
+
+.planet-card-icon {
+  color: #A78BFA;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.planet-card-text h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 3px 0;
+  line-height: 1.2;
+}
+
+.planet-card-text p {
+  font-size: 11px;
+  color: rgba(196, 181, 253, 0.80);
+  line-height: 1.45;
+  max-width: none;
+  margin: 0;
+}
+
+/* Positions matching reference image */
+.planet-card-tl { top: 8%;  left: 2%;   animation-delay: 0s;    }
+.planet-card-tr { top: 5%;  right: 1%;  animation-delay: 1.6s;  }
+.planet-card-bl { bottom: 22%; left: 2%;   animation-delay: 0.9s;  }
+.planet-card-br { bottom: 18%; right: 1%;  animation-delay: 2.3s;  }
+
+@keyframes planetCardFloat {
+  from { transform: translateY(0px);  }
+  to   { transform: translateY(-10px); }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .planet-visual-wrap { min-height: 320px; }
+
+  .planet-card {
+    padding: 10px 12px;
+    min-width: 120px;
+    max-width: 152px;
+    border-radius: 12px;
+  }
+
+  .planet-card-text h4 { font-size: 11.5px; }
+  .planet-card-text p  { font-size: 10px; }
+
+  .planet-card-tl { top: 4%;  left: 1%; }
+  .planet-card-tr { top: 2%;  right: 1%; }
+  .planet-card-bl { bottom: 10%; left: 1%; }
+  .planet-card-br { bottom: 7%;  right: 1%; }
+}
+
+@media (max-width: 600px) {
+  /* Hide cards on very small screens — planet alone is fine */
+  .planet-card { display: none; }
+  .planet-visual-wrap { min-height: 260px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planet-card { animation: none !important; }
+}

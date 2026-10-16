@@ -3,6 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { ArrowRight } from '@phosphor-icons/react';
 import { services } from '../data/content';
 import ServiceVisual from '../components/ServiceVisual';
+import HeroEcosystem from '../components/HeroEcosystem';
 import Reveal from '../components/Reveal';
 import './Services.css';
 
@@ -24,25 +25,48 @@ export default function Services() {
 
   return (
     <>
-      {/* Hero */}
+      {/* ── Services Hero — Split Layout ─────────────── */}
       <section className="services-hero section" aria-label="Services">
-        <div className="container">
-          <Reveal>
-            <h1 className="services-hero-title">
-              Everything your business needs to
-              <span className="text-accent"> get found, earn trust, and grow.</span>
-            </h1>
-          </Reveal>
-          <Reveal delay={120}>
-            <p className="services-hero-subtitle">
-              Six core services that cover your complete digital presence — from the website 
-              your customers see to the systems that power your business behind the scenes.
-            </p>
+        <div className="container services-hero-inner">
+
+          {/* LEFT — Heading & intro */}
+          <div className="services-hero-left">
+            <Reveal>
+              <h1 className="services-hero-title">
+                Everything your business needs to{' '}
+                <span className="text-accent">get found, earn trust, and grow.</span>
+              </h1>
+            </Reveal>
+            <Reveal delay={120}>
+              <p className="services-hero-subtitle">
+                Six core services covering your complete digital presence — from the website
+                your customers see to the systems that power your business behind the scenes.
+              </p>
+            </Reveal>
+            <Reveal delay={200}>
+              <div className="services-hero-nav">
+                {services.map((service) => (
+                  <a
+                    key={service.id}
+                    href={`#${service.id}`}
+                    className="services-nav-pill"
+                  >
+                    <span className="services-nav-num">{service.number}</span>
+                    <span className="services-nav-label">{service.title}</span>
+                  </a>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          {/* RIGHT — Interactive Ecosystem Visual */}
+          <Reveal delay={160} direction="right" className="services-hero-right">
+            <HeroEcosystem />
           </Reveal>
         </div>
       </section>
 
-      {/* Service Blocks */}
+      {/* ── Service Blocks ────────────────────────────── */}
       {services.map((service, i) => {
         const isEven = i % 2 === 0;
         return (
@@ -51,6 +75,7 @@ export default function Services() {
             id={service.id}
             className={`service-block section ${isEven ? '' : 'service-block-alt'}`}
             aria-label={`Service: ${service.title}`}
+            data-index={service.number}
           >
             <div className="container">
               <div className={`service-block-layout ${isEven ? '' : 'reversed'}`}>
@@ -111,7 +136,7 @@ export default function Services() {
         );
       })}
 
-      {/* Bottom CTA */}
+      {/* ── Bottom CTA ─────────────────────────────────── */}
       <section className="section services-cta" aria-label="Get started">
         <div className="container" style={{ textAlign: 'center' }}>
           <Reveal>

@@ -136,12 +136,10 @@
   pointer-events: none;
 }
 
-/* ── Studio Introduction ──────────────────────────── */
-
+/* ── Studio Introduction (Styles managed in StudioIntro.css) ── */
 .studio-intro {
-  background: var(--bg-raised);
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
+  background: transparent;
+  border: none;
 }
 
 .intro-layout {
@@ -188,7 +186,7 @@
 /* ── Process ──────────────────────────────────────── */
 
 .process-section {
-  background: var(--bg-raised);
+  background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
 }
 

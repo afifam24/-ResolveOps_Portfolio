@@ -1,4 +1,4 @@
-﻿import { useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Check, Compass, NotePencil, PenNib, Rocket, ChartLineUp } from '@phosphor-icons/react';
 import type { ProcessStep } from '../data/content';
 import SpecularButton from './SpecularButton';
@@ -49,7 +49,9 @@ export default function WorkflowJourney({ steps }: { steps: ProcessStep[] }) {
         
         <div className="workflow-panel-top">
           <span className="workflow-label">Phase {step.number} / 05</span>
-          <Icon size={32} weight="duotone" aria-hidden="true" className="workflow-panel-icon" />
+          <div className="workflow-panel-icon-wrap">
+            <Icon size={26} weight="regular" aria-hidden="true" className="workflow-panel-icon" />
+          </div>
         </div>
 
         <div key={step.number} className="workflow-copy">
@@ -72,7 +74,10 @@ export default function WorkflowJourney({ steps }: { steps: ProcessStep[] }) {
         <div className="workflow-panel-bottom">
           <div className="workflow-progress" aria-label={`Step ${selected + 1} of ${steps.length}`}>
             {steps.map((s, i) => (
-              <span key={s.number} className={i <= selected ? 'done' : ''} />
+              <span
+                key={s.number}
+                className={`progress-bar${i <= selected ? ' done' : ''}${i === selected ? ' is-current' : i < selected ? ' is-completed' : ''}`}
+              />
             ))}
           </div>
           <SpecularButton size="sm" onClick={() => setSelected((selected + 1) % steps.length)}>
