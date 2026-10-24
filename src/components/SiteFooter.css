@@ -1,4 +1,4 @@
-﻿/* ── Site Footer ────────────────────────────────────────── */
+/* ── Site Footer ────────────────────────────────────────── */
 
 .site-footer {
   position: relative;
@@ -63,11 +63,11 @@
 }
 
 .footer-logo-icon {
-  height: 32px;
-  width: auto;
+  height: 36px;
+  width: 36px;
   display: block;
   object-fit: contain;
-  filter: grayscale(1) sepia(0.3);
+  flex-shrink: 0;
 }
 
 .footer-logo-text {
@@ -86,16 +86,17 @@
 }
 
 .footer-logo-subtitle {
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent); text-shadow: 0 0 10px rgba(245, 243, 255, 0.35);
+  color: var(--color-violet-bright, #a78bfa);
   margin-top: 2px;
 }
 
 .footer-tagline {
-  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--text-primary);
@@ -113,12 +114,12 @@
 /* ── Column Titles & Links ────────────────────────────────── */
 
 .footer-col-title {
-  font-family: var(--font-body, 'Manrope', sans-serif);
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent); text-shadow: 0 0 10px rgba(245, 243, 255, 0.35);
+  color: var(--color-violet-bright, #a78bfa);
   margin-bottom: var(--space-lg);
 }
 

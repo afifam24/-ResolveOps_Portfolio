@@ -4,126 +4,6 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Preload } from '@react-three/drei';
 import * as THREE from 'three';
 
-// ── Floating Glowing Glass Orb ────────────────────────
-
-interface GlassOrbProps {
-  basePos: [number, number, number];
-  radius: number;
-  speed: number;
-  floatAmp: number;
-  phase: number;
-  color: string;
-  emissive: string;
-  hasRing?: boolean;
-}
-
-function GlassOrb({
-  basePos,
-  radius,
-  speed,
-  floatAmp,
-  phase,
-  color,
-  emissive,
-  hasRing = false,
-}: GlassOrbProps) {
-  const meshRef = useRef<THREE.Group>(null);
-  const ringRef = useRef<THREE.Group>(null);
-  const starRef = useRef<THREE.Mesh>(null);
-
-  // Geometry and materials
-  const sphereGeo = useMemo(() => new THREE.SphereGeometry(radius, 36, 36), [radius]);
-  const haloGeo = useMemo(() => new THREE.SphereGeometry(radius * 1.14, 24, 24), [radius]);
-
-  const orbMaterial = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({
-        color: new THREE.Color(color),
-        emissive: new THREE.Color(emissive),
-        emissiveIntensity: 0.55,
-        roughness: 0.18,
-        metalness: 0.12,
-        transparent: true,
-        opacity: 0.78,
-      }),
-    [color, emissive]
-  );
-
-  const haloMaterial = useMemo(
-    () =>
-      new THREE.MeshBasicMaterial({
-        color: new THREE.Color('#D8CCFA'),
-        transparent: true,
-        opacity: 0.15,
-        side: THREE.BackSide,
-      }),
-    []
-  );
-
-  // Thin elliptical orbital ring curve for the ringed sphere
-  const ringGeo = useMemo(() => {
-    if (!hasRing) return null;
-    const curve = new THREE.EllipseCurve(0, 0, radius * 2.2, radius * 1.05, 0, 2 * Math.PI, false, 0);
-    const points = curve.getPoints(64);
-    const geometry = new THREE.BufferGeometry().setFromPoints(
-      points.map(p => new THREE.Vector3(p.x, p.y, 0))
-    );
-    return geometry;
-  }, [hasRing, radius]);
-
-  useFrame((_, delta) => {
-    if (!meshRef.current) return;
-    const t = performance.now() * 0.001 * speed + phase;
-
-    // Gentle organic floating
-    const x = basePos[0] + Math.cos(t * 0.7) * (floatAmp * 0.45);
-    const y = basePos[1] + Math.sin(t) * floatAmp;
-    const z = basePos[2] + Math.sin(t * 0.5) * 0.15;
-
-    meshRef.current.position.set(x, y, z);
-    meshRef.current.rotation.y += delta * 0.18;
-    meshRef.current.rotation.x += delta * 0.08;
-
-    // Orbiting star on the ring
-    if (hasRing && ringRef.current && starRef.current) {
-      ringRef.current.rotation.x = 1.25;
-      ringRef.current.rotation.y = -0.35 + Math.sin(t * 0.2) * 0.08;
-
-      const starAngle = t * 1.15;
-      const rx = radius * 2.2;
-      const ry = radius * 1.05;
-      starRef.current.position.set(
-        Math.cos(starAngle) * rx,
-        Math.sin(starAngle) * ry,
-        0
-      );
-    }
-  });
-
-  return (
-    <group ref={meshRef}>
-      {/* Central Glass Orb */}
-      <mesh geometry={sphereGeo} material={orbMaterial} />
-      {/* Outer Glow Halo */}
-      <mesh geometry={haloGeo} material={haloMaterial} />
-
-      {/* Saturn-like Orbital Ring & Traveler Star */}
-      {hasRing && ringGeo && (
-        <group ref={ringRef}>
-          <lineLoop geometry={ringGeo}>
-            <lineBasicMaterial color="#DDD6FE" transparent opacity={0.65} linewidth={1} />
-          </lineLoop>
-          {/* Orbiting bright luminous star */}
-          <mesh ref={starRef}>
-            <sphereGeometry args={[radius * 0.12, 12, 12]} />
-            <meshBasicMaterial color="#FFFFFF" />
-          </mesh>
-        </group>
-      )}
-    </group>
-  );
-}
-
 // ── Drifting Cosmic Stardust Particles ────────────────
 
 function Stardust({ vW, vH }: { vW: number; vH: number }) {
@@ -302,20 +182,6 @@ function AuroraLivingScene({ shouldAnimate }: { shouldAnimate: boolean }) {
   const vH = viewport.height;
   const isMobile = vW < 6.5;
 
-  // Responsive positions framing the headline
-  const orb1Pos: [number, number, number] = useMemo(
-    () => [-vW * 0.36, vH * 0.27, -0.2],
-    [vW, vH]
-  );
-  const orb2Pos: [number, number, number] = useMemo(
-    () => [vW * 0.41, -vH * 0.04, 0.1],
-    [vW, vH]
-  );
-  const orb3Pos: [number, number, number] = useMemo(
-    () => [-vW * 0.31, -vH * 0.37, -0.1],
-    [vW, vH]
-  );
-
   useFrame(() => {
     if (!shouldAnimate) return;
     // Elegant, smooth 3D mouse parallax
@@ -326,52 +192,14 @@ function AuroraLivingScene({ shouldAnimate }: { shouldAnimate: boolean }) {
 
   return (
     <group>
-      {/* 3 Floating Glass Orbs matching the exact composition */}
-      {/* 1. Top-Left Floating Glass Orb */}
-      <GlassOrb
-        basePos={orb1Pos}
-        radius={isMobile ? 0.36 : 0.48}
-        speed={0.85}
-        floatAmp={0.16}
-        phase={0.2}
-        color="#C4B5FD"
-        emissive="#7C3AED"
-      />
-
-      {/* 2. Middle-Right Glass Orb with Saturn-like Orbital Ring & Orbiting Star */}
-      <GlassOrb
-        basePos={orb2Pos}
-        radius={isMobile ? 0.38 : 0.52}
-        speed={0.9}
-        floatAmp={0.18}
-        phase={2.4}
-        color="#DDD6FE"
-        emissive="#8B5CF6"
-        hasRing={true}
-      />
-
-      {/* 3. Bottom-Left Floating Glass Orb */}
-      <GlassOrb
-        basePos={orb3Pos}
-        radius={isMobile ? 0.28 : 0.38}
-        speed={0.75}
-        floatAmp={0.14}
-        phase={4.1}
-        color="#A78BFA"
-        emissive="#6D28D9"
-      />
-
-      {/* Drifting Stardust */}
+      {/* Drifting Stardust Particles */}
       <Stardust vW={vW} vH={vH} />
 
-      {/* Subtle Flowing Silk Aurora Light Strands */}
+      {/* Flowing Purple Neon Aurora Silk Light Strands */}
       <SilkFlowStrands vW={vW} vH={vH} />
 
-      {/* Scene Lighting */}
+      {/* Ambient & Atmosphere Lighting */}
       <ambientLight intensity={0.65} color="#E9E5FF" />
-      <pointLight position={[orb1Pos[0], orb1Pos[1], 1.2]} intensity={1.2} color="#C4B5FD" distance={7} />
-      <pointLight position={[orb2Pos[0], orb2Pos[1], 1.2]} intensity={1.5} color="#E9E5FF" distance={8} />
-      <pointLight position={[orb3Pos[0], orb3Pos[1], 1.2]} intensity={0.9} color="#8B5CF6" distance={6} />
       <pointLight position={[0, -vH * 0.4, -1]} intensity={0.8} color="#7C3AED" distance={10} />
     </group>
   );

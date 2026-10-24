@@ -2,12 +2,9 @@
 .service-stage {
   position: relative;
   overflow: hidden;
-  background: radial-gradient(
-    ellipse 75% 55% at 50% 40%,
-    rgba(139, 92, 246, 0.08) 0%,
-    rgba(var(--bg-section-rgb), 0.6) 45%,
-    var(--bg-primary) 100%
-  );
+  background: transparent;
+  border-bottom: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  padding: clamp(60px, 8vw, 108px) 0;
 }
 
 /* ── Refined, Understated Background Atmosphere & Light Trails ── */
@@ -17,13 +14,13 @@
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.65;
 }
 
 .service-atmosphere .trail {
   position: absolute;
   border-radius: 50%;
-  filter: blur(110px);
+  filter: blur(100px);
   pointer-events: none;
   will-change: transform, opacity;
 }
@@ -33,7 +30,7 @@
   height: 320px;
   top: 15%;
   left: 6%;
-  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.13) 0%, rgba(91, 63, 208, 0.07) 50%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(41, 19, 77, 0.45) 0%, rgba(22, 11, 43, 0.25) 50%, transparent 75%);
   animation: floatTrail1 24s ease-in-out infinite alternate;
 }
 
@@ -42,7 +39,7 @@
   height: 350px;
   top: 25%;
   right: 5%;
-  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.14) 0%, rgba(91, 63, 208, 0.07) 45%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(41, 19, 77, 0.42) 0%, rgba(22, 11, 43, 0.22) 45%, transparent 75%);
   animation: floatTrail2 28s ease-in-out infinite alternate;
 }
 
@@ -51,33 +48,33 @@
   height: 280px;
   bottom: 15%;
   left: 32%;
-  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.11) 0%, rgba(91, 63, 208, 0.05) 55%, transparent 80%);
+  background: radial-gradient(ellipse at center, rgba(41, 19, 77, 0.38) 0%, rgba(22, 11, 43, 0.18) 55%, transparent 80%);
   animation: floatTrail3 22s ease-in-out infinite alternate;
 }
 
 .service-atmosphere .ambient-mesh {
   position: absolute;
   inset: 0;
-  background: radial-gradient(70% 50% at 50% 40%, rgba(139, 92, 246, 0.07) 0%, rgba(16, 9, 35, 0.35) 65%, transparent 100%);
+  background: radial-gradient(70% 50% at 50% 40%, rgba(41, 19, 77, 0.25) 0%, rgba(22, 11, 43, 0.45) 60%, transparent 100%);
   pointer-events: none;
 }
 
 @keyframes floatTrail1 {
   0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); opacity: 0.45; }
-  50% { transform: translate3d(40px, 20px, 0) scale(1.08) rotate(4deg); opacity: 0.6; }
-  100% { transform: translate3d(-30px, -15px, 0) scale(0.96) rotate(-4deg); opacity: 0.4; }
+  50% { transform: translate3d(35px, 15px, 0) scale(1.06) rotate(3deg); opacity: 0.6; }
+  100% { transform: translate3d(-25px, -12px, 0) scale(0.96) rotate(-3deg); opacity: 0.4; }
 }
 
 @keyframes floatTrail2 {
   0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); opacity: 0.5; }
-  50% { transform: translate3d(-50px, -25px, 0) scale(1.1) rotate(-5deg); opacity: 0.65; }
-  100% { transform: translate3d(20px, 20px, 0) scale(0.94) rotate(3deg); opacity: 0.45; }
+  50% { transform: translate3d(-40px, -20px, 0) scale(1.08) rotate(-4deg); opacity: 0.65; }
+  100% { transform: translate3d(20px, 18px, 0) scale(0.95) rotate(2deg); opacity: 0.45; }
 }
 
 @keyframes floatTrail3 {
   0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.4; }
-  50% { transform: translate3d(-30px, 15px, 0) scale(1.1); opacity: 0.55; }
-  100% { transform: translate3d(35px, -20px, 0) scale(0.95); opacity: 0.35; }
+  50% { transform: translate3d(-25px, 12px, 0) scale(1.06); opacity: 0.55; }
+  100% { transform: translate3d(28px, -16px, 0) scale(0.95); opacity: 0.35; }
 }
 
 /* ── Stage Header ─────────────────────────────────────────── */
@@ -87,15 +84,61 @@
   align-items: flex-end;
   gap: 24px;
 }
+
 .stage-header h2 {
-  font-size: var(--text-5xl);
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: #ffffff;
   margin-top: 12px;
 }
+
 .stack-eyebrow {
-  font-size: 12px;
-  letter-spacing: .13em;
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--theme-accent);
+  color: var(--color-violet-bright, #a78bfa);
+}
+
+.stage-header .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  background: rgba(139, 92, 246, 0.08);
+  color: #ffffff;
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease,
+              background 0.25s ease,
+              color 0.25s ease,
+              box-shadow 0.25s ease,
+              transform 0.25s ease;
+}
+
+.stage-header .btn-ghost svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stage-header .btn-ghost:hover {
+  border-color: rgba(167, 139, 250, 0.5);
+  background: rgba(139, 92, 246, 0.18);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.stage-header .btn-ghost:hover svg {
+  transform: translateX(4px);
 }
 
 /* ── Gallery Scene with Subdued, Atmospheric Backlight ───── */
@@ -111,8 +154,8 @@
   inset: 15% 20% 20% 20%;
   background: radial-gradient(
     ellipse 60% 45% at 50% 50%,
-    rgba(139, 92, 246, 0.12) 0%,
-    rgba(91, 63, 208, 0.09) 45%,
+    rgba(41, 19, 77, 0.50) 0%,
+    rgba(22, 11, 43, 0.28) 45%,
     transparent 75%
   );
   filter: blur(75px);
@@ -200,46 +243,48 @@
 .gallery-selectors button {
   flex: 1 1 28%;
   text-align: left;
-  padding: 16px 18px;
+  padding: 16px 20px;
   border-radius: 14px;
-  background: rgba(22, 13, 44, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(167, 139, 250, 0.20);
-  color: var(--theme-text-body);
-  font: inherit;
-  font-size: 13px;
+  background: rgba(22, 11, 44, 0.76);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  color: var(--color-text-secondary, rgba(226, 232, 240, 0.84));
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.3s ease,
               border-color 0.25s ease,
-              background 0.25s ease;
+              background 0.25s ease,
+              color 0.25s ease;
 }
 .gallery-selectors button:hover {
   transform: translateY(-2px);
-  border-color: rgba(167, 139, 250, 0.38);
-  box-shadow: 0 8px 24px rgba(10, 5, 25, 0.4), 0 0 14px rgba(139, 92, 246, 0.16);
-  background: rgba(28, 17, 56, 0.65);
+  border-color: rgba(196, 181, 253, 0.5);
+  background: rgba(28, 14, 56, 0.88);
+  color: #ffffff;
 }
 .gallery-selectors button[aria-pressed=true] {
-  color: var(--theme-bg-darkest);
-  background: var(--theme-accent);
-  border-color: var(--theme-accent);
-  box-shadow: 0 6px 20px rgba(245, 243, 255, 0.25), 0 0 16px rgba(139, 92, 246, 0.25);
+  color: #ffffff;
+  background: rgba(36, 18, 72, 0.92);
+  border-color: #a78bfa;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
 }
 
 /* ── Selected Service Details (Darkened Glassmorphic Card) ─── */
 .gallery-detail {
   display: flex;
   gap: 48px;
-  padding: 36px;
-  background: linear-gradient(135deg, rgba(var(--bg-section-rgb), 0.8) 0%, rgba(var(--bg-primary-rgb), 0.9) 100%);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-  border-radius: 26px;
-  box-shadow: 0 16px 40px rgba(8, 4, 20, 0.55), 0 0 25px rgba(139, 92, 246, 0.10), inset 0 1px 0 rgba(245, 243, 255, 0.14);
+  padding: clamp(28px, 4vw, 42px);
+  background: rgba(22, 11, 44, 0.76);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
 }
@@ -260,18 +305,28 @@
   z-index: 1;
 }
 .gallery-detail h3 {
-  font-size: var(--text-3xl);
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
   margin: 12px 0;
 }
 .gallery-detail p {
-  color: var(--text-secondary);
-  line-height: 1.8;
+  font-size: clamp(1.02rem, 1.25vw, 1.15rem);
+  color: var(--color-text-secondary, rgba(226, 232, 240, 0.84));
+  line-height: 1.74;
 }
 .gallery-detail .btn {
   margin-top: 24px;
 }
 .gallery-detail .stack-eyebrow {
-  color: var(--theme-accent);
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-violet-bright, #a78bfa);
 }
 .stack-capabilities {
   list-style: none;
@@ -281,18 +336,18 @@
   padding: 0;
 }
 .stack-capabilities li {
-  padding: 8px 12px;
-  border: 1px solid rgba(167, 139, 250, 0.22);
-  background: rgba(22, 13, 44, 0.45);
-  backdrop-filter: blur(8px);
-  border-radius: 8px;
-  font-size: 12px;
-  color: var(--theme-accent);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  padding: 6px 12px;
+  border: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  background: rgba(12, 6, 26, 0.85);
+  border-radius: 6px;
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  color: var(--color-text-lavender, #c4b5fd);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 .stack-capabilities li:hover {
   border-color: rgba(167, 139, 250, 0.4);
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+  background: rgba(22, 11, 44, 0.95);
 }
 .gallery-outcome {
   margin-top: 24px;

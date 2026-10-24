@@ -1,3 +1,5 @@
+/* ── Home Page (Aligned with About Editorial Style) ── */
+
 /* ── Hero ─────────────────────────────────────────── */
 
 .hero {
@@ -7,9 +9,14 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: calc(var(--nav-height) + var(--space-2xl));
+  padding-top: calc(var(--nav-height) + var(--space-3xl));
   padding-bottom: var(--space-4xl);
   overflow: hidden;
+  background-color: var(--color-bg-base, #0c0618);
+  background:
+    radial-gradient(ellipse 75% 65% at 50% -5%, rgba(91, 63, 208, 0.22) 0%, rgba(22, 11, 38, 0.55) 55%, transparent 80%),
+    radial-gradient(circle 650px at 70% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 70%),
+    var(--color-bg-base, #0c0618);
 }
 
 .hero-container {
@@ -19,44 +26,61 @@
   gap: var(--space-lg);
   position: relative;
   z-index: 2;
+  max-width: 900px;
 }
 
 .hero-eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
-  text-shadow: 0 0 10px rgba(245, 243, 255, 0.3);
+  color: var(--color-text-lavender, #c4b5fd);
+}
+
+.hero-eyebrow-logo {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.45));
 }
 
 .hero-heading {
-  font-size: var(--text-hero);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-  max-width: 850px;
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(3.2rem, 6.4vw, 5.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  max-width: 860px;
   color: #FFFFFF;
   text-shadow: none !important;
 }
 
 .hero-heading .text-accent {
-  background: linear-gradient(135deg, #FFFFFF 0%, #C4B5FD 100%);
+  background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #e9d5ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
   display: inline-block;
-  filter: drop-shadow(0 0 14px rgba(196, 181, 253, 0.45));
   text-shadow: none !important;
 }
 
 .hero-subtext {
-  font-size: var(--text-lg);
-  color: var(--text-secondary);
-  max-width: 520px;
+  font-size: clamp(1.06rem, 1.35vw, 1.25rem);
+  color: var(--color-text-secondary, rgba(226, 232, 240, 0.84));
+  max-width: 580px;
   text-align: center;
-  line-height: 1.65;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
 }
 
 .hero-actions {
@@ -68,22 +92,16 @@
 }
 
 .btn-lg {
-  padding: 1rem 2rem;
+  padding: 1rem 2.2rem;
   font-size: var(--text-base);
 }
 
 .hero-actions .btn-primary {
-  transition: background-color var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out),
-              transform var(--duration-snappy) var(--spring-snappy);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-actions .btn-primary svg {
   transition: transform var(--duration-snappy) var(--spring-snappy);
-}
-
-.hero-actions .btn-primary:hover {
-  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.32), 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
 .hero-actions .btn-primary:hover svg {
@@ -97,32 +115,26 @@
               transform var(--duration-snappy) var(--spring-snappy);
 }
 
-.hero-actions .btn-secondary:hover {
-  border-color: rgba(var(--accent-rgb), 0.55);
-  background-color: rgba(var(--accent-rgb), 0.08);
-  color: var(--text-primary);
-}
-
 .hero-email {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: var(--text-sm);
-  color: var(--accent);
-  text-shadow: 0 0 12px rgba(245, 243, 255, 0.4);
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-violet-bright, #a78bfa);
   margin-top: var(--space-sm);
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 4px;
   transition: color var(--duration-fast) var(--ease-out),
-              text-decoration-color var(--duration-fast) var(--ease-out),
-              text-shadow var(--duration-fast) var(--ease-out);
+              text-decoration-color var(--duration-fast) var(--ease-out);
 }
 
 .hero-email:hover {
   color: #FFFFFF;
-  text-decoration-color: var(--accent);
-  text-shadow: var(--glow-soft);
+  text-decoration-color: var(--color-violet-bright);
 }
 
 .hero-gradient {
@@ -132,11 +144,11 @@
   transform: translateX(-50%);
   width: 800px;
   height: 600px;
-  background: radial-gradient(ellipse, rgba(var(--accent-rgb), 0.04) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(41, 19, 77, 0.28) 0%, transparent 70%);
   pointer-events: none;
 }
 
-/* ── Studio Introduction (Styles managed in StudioIntro.css) ── */
+/* ── Studio Introduction ────────────────────────── */
 .studio-intro {
   background: transparent;
   border: none;
@@ -147,35 +159,43 @@
 }
 
 .intro-label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--color-violet-bright, #a78bfa);
   margin-bottom: var(--space-xl);
 }
 
 .intro-heading {
-  font-size: var(--text-4xl);
-  font-weight: 600;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
   margin-bottom: var(--space-xl);
+  color: #ffffff;
 }
 
 .intro-body {
-  font-size: var(--text-lg);
-  color: var(--text-secondary);
+  font-size: clamp(1.04rem, 1.3vw, 1.2rem);
+  color: var(--color-text-secondary, rgba(226, 232, 240, 0.84));
   line-height: 1.75;
-  max-width: 600px;
+  max-width: 620px;
 }
 
 /* ── Work Section ─────────────────────────────────── */
 
+.work-section {
+  padding: clamp(60px, 8vw, 108px) 0;
+  border-top: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+}
+
 .work-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2xl);
+  gap: clamp(24px, 3.5vw, 42px);
 }
 
 .work-cta {
@@ -186,114 +206,114 @@
 /* ── Process ──────────────────────────────────────── */
 
 .process-section {
-  background: var(--bg-secondary);
-  border-top: 1px solid var(--border-subtle);
+  background: transparent;
+  border-top: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  padding: clamp(60px, 8vw, 108px) 0;
 }
 
 .process-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-xl);
-  align-items: stretch;     /* each cell grows to the tallest cell */
-  position: relative;       /* containing block for the connector */
-  isolation: isolate;       /* local stacking context — connector z:0, cards z:1 */
+  align-items: stretch;
+  position: relative;
+  isolation: isolate;
 }
 
-/* Reveal wrapper — fills the grid cell and sits above the connector */
 .process-reveal {
   height: 100%;
-  position: relative;   /* enables z-index in the isolated stacking context */
-  z-index: 1;           /* above .process-connector (z-index: 0) */
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Connecting line ────────────────────────────────────
-   Absolutely positioned inside .process-grid (z-index: 0 — behind cards).
-   Only visible in the 2rem gaps between cards; the opaque card backgrounds
-   cover the line where it passes beneath each card.
-   Vertical position: top of card padding + half of step-number font-size
-   ≈ var(--space-xl) + 1rem = ~3rem — aligns with the step numbers.
-   ────────────────────────────────────────────────── */
 .process-connector {
   position: absolute;
-  top: calc(var(--space-xl) + 1rem);   /* ≈ 3rem from top — through step numbers */
+  top: calc(var(--space-xl) + 1rem);
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(var(--accent-rgb), 0.12); /* subtle base — always visible */
+  background: rgba(139, 92, 246, 0.16);
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
 }
 
-/* Illuminated fill — transform: scaleX() set by inline style from React */
 .process-connector-fill {
   position: absolute;
   inset: 0;
-  background: rgba(var(--accent-rgb), 0.44); /* brighter but not neon */
+  background: rgba(167, 139, 250, 0.5);
   transform-origin: left center;
-  transform: scaleX(0);                 /* initial state: nothing lit */
+  transform: scaleX(0);
   transition: transform 440ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .process-step {
   padding: var(--space-xl);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  background: var(--bg-primary);
-  height: 100%;               /* fills the Reveal wrapper → equal heights */
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 20px;
+  background: rgba(22, 11, 44, 0.76);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow: 
+    0 16px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  height: 100%;
   box-sizing: border-box;
-  transition:
-    border-color 220ms ease,
-    background   220ms ease,
-    box-shadow   220ms ease,
-    transform    260ms cubic-bezier(0.16, 1, 0.3, 1);  /* smooth lift */
+  transition: 
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
-/* Hover lift + glow — desktop/pointer only, never fires on touch */
 @media (hover: hover) {
   .process-step:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent);
-    background: linear-gradient(
-      180deg,
-      rgba(var(--accent-rgb), 0.05) 0%,
-      rgba(var(--accent-rgb), 0.01) 100%
-    ), var(--bg-primary);
-    box-shadow:
-      0 0 0 1px rgba(var(--accent-rgb), 0.18),
-      0 0 28px rgba(var(--accent-rgb), 0.13),
-      0 12px 28px rgba(0, 0, 0, 0.22);
+    transform: translateY(-4px);
+    border-color: rgba(196, 181, 253, 0.5);
+    background: rgba(28, 14, 56, 0.88);
+    box-shadow: 
+      0 24px 60px rgba(0, 0, 0, 0.6),
+      0 0 32px rgba(139, 92, 246, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.16);
   }
 }
 
 .process-number {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.76rem;
   font-weight: 700;
-  color: var(--accent);
-  opacity: 0.4;
+  letter-spacing: 0.14em;
+  color: var(--color-violet-bright, #a78bfa);
   display: block;
   margin-bottom: var(--space-md);
 }
 
 .process-title {
-  font-size: var(--text-lg);
-  font-weight: 600;
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
   margin-bottom: var(--space-sm);
-  line-height: 1.3;
+  line-height: 1.25;
 }
 
 .process-description {
-  font-size: var(--text-sm);
-  color: var(--text-secondary);
-  line-height: 1.6;
+  font-size: 0.92rem;
+  color: var(--color-text-secondary, rgba(226, 232, 240, 0.84));
+  line-height: 1.68;
 }
 
 /* ── Closing CTA ──────────────────────────────────── */
 
 .cta-section {
-  border-top: 1px solid var(--border-subtle);
-  padding: var(--space-5xl) 0;
+  border-top: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  padding: clamp(80px, 10vw, 130px) 0;
+  background: radial-gradient(
+    ellipse 65% 55% at 50% 100%,
+    rgba(91, 63, 208, 0.22) 0%,
+    transparent 80%
+  );
 }
 
 .cta-container {
@@ -302,23 +322,27 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-lg);
+  max-width: 780px;
+  margin: 0 auto;
 }
 
 .cta-eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-family: var(--font-editorial-mono, 'Space Grotesk', monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--color-violet-bright, #a78bfa);
 }
 
 .cta-heading {
-  font-size: clamp(2.2rem, 1.6rem + 2.5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  max-width: 700px;
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #ffffff;
+  text-wrap: balance;
 }
 
 .cta-actions {
@@ -334,7 +358,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  /* Hide the horizontal connector when cards wrap into multiple rows */
   .process-connector {
     display: none;
   }
@@ -371,14 +394,29 @@
   }
 }
 
-/* Disable connector transition for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .process-connector-fill {
     transition: none;
   }
 }
 
-.process-step{cursor:pointer;transition:background .35s ease,transform .35s ease;border-radius:var(--radius-lg)}
-.process-step.is-selected{background:var(--color-surface);transform:translateY(-3px)}
-.process-description{opacity:.65;transition:opacity .35s ease}.process-step.is-selected .process-description{opacity:1;color:var(--color-highlight)}
-@media(prefers-reduced-motion:reduce){.process-step.is-selected{transform:none}}
+.process-step {
+  cursor: pointer;
+  transition: background .35s ease, transform .35s ease, border-color .35s ease;
+}
+.process-step.is-selected {
+  background: rgba(28, 14, 56, 0.88);
+  border-color: rgba(196, 181, 253, 0.6);
+  transform: translateY(-3px);
+}
+.process-description {
+  opacity: .8;
+  transition: opacity .35s ease;
+}
+.process-step.is-selected .process-description {
+  opacity: 1;
+  color: #ffffff;
+}
+@media(prefers-reduced-motion:reduce){
+  .process-step.is-selected { transform: none; }
+}

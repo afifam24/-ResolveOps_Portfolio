@@ -219,6 +219,17 @@ export const projects: Project[] = [
     image: '/projects/sindhu-real.png',
     alt: "Sindhu's Multispeciality Dental Clinic live website showing treatments and clinic information in Tiruppur",
   },
+  {
+    id: 'maruthi-fitness',
+    title: 'Maruthi Fitness',
+    category: 'Website Development',
+    description:
+      '**Status:** Delivered\n**Objective:** Build a high-energy, modern digital presence for a premier CrossFit and functional training facility in Coimbatore.\n**Constraints:** Required a fast, bold aesthetic with cinematic motion that communicates elite training standards across mobile and desktop.\n**Contribution:** Studio collaboration & showcase (Developed by teammate Mohana Sundaram).\n**Features:** Dynamic hero typography, interactive training explorer, live rating counters, facility gallery, and direct WhatsApp enquiry pathways.\n**Outcome:** A high-converting web presence built to attract fitness enthusiasts and drive membership enquiries.',
+    url: 'https://maruthi-fitness.vercel.app/',
+    urlLabel: 'View live website',
+    image: '/projects/maruthi-fitness.png',
+    alt: 'Maruthi Fitness live website homepage showing CrossFit training facility and membership enquiry in Coimbatore',
+  },
 ];
 
 // ── Process ───────────────────────────────────────

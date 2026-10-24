@@ -100,10 +100,12 @@ class Media {
           float edgeSmooth = 0.002;
           float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
           
-          // Subtle, refined violet rim illumination on hover
-          float rim = smoothstep(0.06, 0.0, abs(d));
-          vec3 glowColor = vec3(0.55, 0.36, 0.96);
-          color.rgb += glowColor * rim * uHover * 0.18;
+          // Subtle, refined violet rim illumination with #A78BFA and #29134D
+          float rim = smoothstep(0.045, 0.0, abs(d));
+          vec3 accentViolet = vec3(0.655, 0.545, 0.980); // #A78BFA
+          vec3 deepGlow = vec3(0.25, 0.12, 0.48);        // #29134D-tinted glow
+          vec3 rimColor = mix(deepGlow, accentViolet, 0.5 + uHover * 0.35);
+          color.rgb += rimColor * rim * (0.22 + uHover * 0.38);
           
           gl_FragColor = vec4(color.rgb, alpha);
         }
@@ -160,13 +162,26 @@ class Media {
       }
     }
 
-    // Subtle gentle lift and increased purple glow on hover for the active/center card
+    // A. Subtle, organic floating motion: each card drifts independently with gentle timing
+    const t = performance.now() * 0.001;
+    const floatSpeed = 0.55;
+    const floatY = Math.sin(t * floatSpeed + this.index * 1.35) * 0.14 + Math.cos(t * floatSpeed * 0.65 + this.index * 0.95) * 0.08;
+    const floatRot = Math.sin(t * floatSpeed * 0.75 + this.index * 1.1) * 0.012;
+    this.plane.position.y += floatY;
+    this.plane.rotation.z += floatRot;
+
+    // B. Depth & dimension: Central card sits slightly more prominent without size change; side cards recede with depth
     const distFromCenter = Math.abs(x);
+    const centerFactor = Math.max(0, 1.0 - distFromCenter / (this.width * 1.3));
+    this.plane.position.z = centerFactor * 0.75;
+
+    // D. Smooth hover interactions: gentle elevation & depth boost
     const isCenter = distFromCenter < this.width * 0.55;
     const centerWeight = isCenter ? Math.cos((distFromCenter / (this.width * 0.55)) * (Math.PI / 2)) : 0;
     const cardHover = hoverAmount * centerWeight;
 
-    this.plane.position.y += cardHover * 0.35;
+    this.plane.position.y += cardHover * 0.42;
+    this.plane.position.z += cardHover * 0.65;
 
     if (this.program.uniforms.uHover) {
       this.program.uniforms.uHover.value = cardHover;

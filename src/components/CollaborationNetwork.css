@@ -1,0 +1,465 @@
+/* ── Collaboration Network Component ──────────────── */
+
+.collab-network {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Canvas layer */
+.collab-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floating specialist discipline cards */
+.collab-card {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(22, 11, 44, 0.76);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--border-editorial, rgba(139, 92, 246, 0.18));
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  width: clamp(210px, 23vw, 248px);
+  cursor: default;
+  outline: none;
+  user-select: none;
+  overflow: hidden;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.35s ease,
+    opacity 0.35s ease,
+    filter 0.35s ease;
+}
+
+/* Card positions in the four quadrants */
+.collab-card--top-left {
+  top: 5%;
+  left: 2%;
+  animation: collabCardFloat1 7.2s ease-in-out infinite alternate;
+}
+
+.collab-card--top-right {
+  top: 5%;
+  right: 2%;
+  animation: collabCardFloat2 8.0s ease-in-out infinite alternate;
+}
+
+.collab-card--bottom-left {
+  bottom: 6%;
+  left: 2%;
+  animation: collabCardFloat3 8.4s ease-in-out infinite alternate;
+}
+
+.collab-card--bottom-right {
+  bottom: 6%;
+  right: 2%;
+  animation: collabCardFloat4 7.6s ease-in-out infinite alternate;
+}
+
+/* Smooth, gentle floating keyframes */
+@keyframes collabCardFloat1 {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-3.5px) translateX(0.8px); }
+  100% { transform: translateY(-1.5px) translateX(-0.6px); }
+}
+
+@keyframes collabCardFloat2 {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-3.2px) translateX(-0.8px); }
+  100% { transform: translateY(-1px) translateX(0.6px); }
+}
+
+@keyframes collabCardFloat3 {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-2.8px) translateX(0.6px); }
+  100% { transform: translateY(-3.2px) translateX(-0.5px); }
+}
+
+@keyframes collabCardFloat4 {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-3.4px) translateX(-0.6px); }
+  100% { transform: translateY(-1.5px) translateX(0.5px); }
+}
+
+/* Highlighted state on hover */
+.collab-card.is-highlighted,
+.collab-card:hover {
+  border-color: rgba(196, 181, 253, 0.55);
+  background: rgba(28, 14, 56, 0.88);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(139, 92, 246, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transform: translateY(-4px) scale(1.02) !important;
+  z-index: 6;
+}
+
+.collab-card.is-dimmed {
+  opacity: 0.38;
+  filter: saturate(65%);
+  transform: scale(0.98);
+}
+
+/* Card Header */
+.collab-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.collab-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  color: #c4b5fd;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.collab-card:hover .collab-card-icon,
+.collab-card.is-highlighted .collab-card-icon {
+  background: rgba(139, 92, 246, 0.4);
+  border-color: #c4b5fd;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+}
+
+.collab-card-label {
+  font-family: var(--font-editorial-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  flex: 1;
+  text-transform: uppercase;
+}
+
+.collab-card-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 8px #a78bfa;
+}
+
+/* Card Description */
+.collab-card-desc {
+  font-size: 0.77rem;
+  color: rgba(226, 232, 240, 0.75);
+  line-height: 1.45;
+  margin: 0 0 10px 0;
+}
+
+/* Miniature visual sandbox inside the card */
+.collab-card-mini-sandbox {
+  width: 100%;
+  height: 42px;
+  border-radius: 9px;
+  background: rgba(10, 5, 22, 0.75);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  padding: 6px 9px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.collab-card:hover .collab-card-mini-sandbox,
+.collab-card.is-highlighted .collab-card-mini-sandbox {
+  border-color: rgba(167, 139, 250, 0.4);
+  background: rgba(14, 7, 30, 0.9);
+}
+
+/* 1. Design Preview */
+.mini-preview-design {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.design-swatches {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.swatch {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.swatch--violet { background: #a78bfa; }
+.swatch--cyan { background: #38bdf8; }
+
+.swatch-wire-bar {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(167, 139, 250, 0.22);
+}
+
+.design-mini-blocks {
+  display: flex;
+  gap: 6px;
+}
+
+.mini-block {
+  flex: 1;
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px dashed rgba(139, 92, 246, 0.28);
+}
+
+.mini-block--active {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.35), rgba(167, 139, 250, 0.25));
+  border: 1px solid rgba(196, 181, 253, 0.55);
+}
+
+/* 2. Dev Preview */
+.mini-preview-dev {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-mono, monospace);
+}
+
+.dev-code-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.65rem;
+}
+
+.dev-ping-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+}
+
+.dev-token-tag {
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+.dev-token-arrow {
+  color: rgba(167, 139, 250, 0.7);
+  font-size: 0.6rem;
+}
+
+.dev-token-badge {
+  font-size: 0.58rem;
+  color: #a7f3d0;
+  background: rgba(52, 211, 153, 0.12);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+.dev-mini-syntax {
+  display: flex;
+  gap: 5px;
+}
+
+.dev-syntax-line {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(167, 139, 250, 0.25);
+}
+
+.dev-syntax-line.line-1 { width: 45%; }
+.dev-syntax-line.line-2 { width: 30%; }
+
+/* 3. Marketing Preview */
+.mini-preview-mkt {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mkt-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.66rem;
+}
+
+.mkt-pulse-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #f472b6;
+  box-shadow: 0 0 6px #f472b6;
+}
+
+.mkt-reach-tag {
+  color: #cbd5e1;
+  font-size: 0.64rem;
+  margin-left: 5px;
+  flex: 1;
+}
+
+.mkt-reach-val {
+  font-weight: 700;
+  color: #f472b6;
+  font-size: 0.66rem;
+}
+
+.mkt-bar-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(139, 92, 246, 0.2);
+  overflow: hidden;
+}
+
+.mkt-bar-fill {
+  width: 78%;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #8b5cf6 0%, #f472b6 100%);
+}
+
+/* 4. Analytics Preview */
+.mini-preview-analytics {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.analytics-sparkline-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.analytics-sparkline-svg {
+  width: 110px;
+  height: 20px;
+}
+
+.analytics-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.metric-tag {
+  font-size: 0.55rem;
+  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.metric-val {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #c4b5fd;
+}
+
+/* Subtle corner glow in card */
+.collab-card-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.16) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.collab-card:hover .collab-card-glow {
+  opacity: 1;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .collab-network {
+    min-height: 440px;
+  }
+
+  .collab-card {
+    width: clamp(190px, 42vw, 220px);
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .collab-network {
+    min-height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .collab-canvas {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+  }
+
+  .collab-card {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100%;
+    animation: none !important;
+    padding: 12px;
+  }
+
+  .collab-card-desc {
+    font-size: 0.72rem;
+  }
+
+  .collab-card-mini-sandbox {
+    height: 36px;
+  }
+}
+
+@media (max-width: 440px) {
+  .collab-network {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collab-card {
+    animation: none !important;
+    transition: none !important;
+  }
+}

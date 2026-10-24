@@ -1,14 +1,17 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { ArrowRight } from '@phosphor-icons/react';
 import { services } from '../data/content';
 import ServiceVisual from '../components/ServiceVisual';
-import HeroEcosystem from '../components/HeroEcosystem';
+import HeroEcosystem, { EcosystemCardId } from '../components/HeroEcosystem';
 import Reveal from '../components/Reveal';
 import './Services.css';
 
 export default function Services() {
   const location = useLocation();
+  const heroRef = useRef<HTMLElement>(null);
+  const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
+  const [hoveredCardId, setHoveredCardId] = useState<EcosystemCardId | null>(null);
 
   // Scroll to service anchor if hash is present
   useEffect(() => {
@@ -23,12 +26,57 @@ export default function Services() {
     }
   }, [location.hash]);
 
+  // Subtle cursor-responsive light effect on desktop
+  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+    if (!heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    heroRef.current.style.setProperty('--mouse-x', `${x}px`);
+    heroRef.current.style.setProperty('--mouse-y', `${y}px`);
+  };
+
+  const handlePillClick = (e: React.MouseEvent<HTMLAnchorElement>, serviceId: string) => {
+    e.preventDefault();
+    const el = document.getElementById(serviceId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.pushState(null, '', `#${serviceId}`);
+    }
+  };
+
+  // Determine if pill should be highlighted from card hover
+  const isPillHighlighted = (serviceId: string) => {
+    if (activeServiceId === serviceId) return true;
+    if (hoveredCardId) {
+      if (hoveredCardId === 'design' && (serviceId === 'ui-ux-design' || serviceId === 'website-development')) return true;
+      if (hoveredCardId === 'development' && (serviceId === 'website-development' || serviceId === 'ui-ux-design')) return true;
+      if (hoveredCardId === 'analytics' && (serviceId === 'business-analytics' || serviceId === 'seo-digital-marketing')) return true;
+      if (hoveredCardId === 'automation' && (serviceId === 'ai-automation' || serviceId === 'crm-workflow-automation')) return true;
+    }
+    return false;
+  };
+
   return (
     <>
       {/* ── Services Hero — Split Layout ─────────────── */}
-      <section className="services-hero section" aria-label="Services">
-        <div className="container services-hero-inner">
+      <section
+        ref={heroRef}
+        className="services-hero section"
+        aria-label="Services overview and ecosystem"
+        onPointerMove={handlePointerMove}
+      >
+        {/* Subtle background ambient particles */}
+        <div className="services-hero-ambient-particles" aria-hidden="true">
+          <span className="hero-particle particle-p1" />
+          <span className="hero-particle particle-p2" />
+          <span className="hero-particle particle-p3" />
+          <span className="hero-particle particle-p4" />
+          <span className="hero-particle particle-p5" />
+          <span className="hero-particle particle-p6" />
+        </div>
 
+        <div className="container services-hero-inner">
           {/* LEFT — Heading & intro */}
           <div className="services-hero-left">
             <Reveal>
@@ -44,24 +92,42 @@ export default function Services() {
               </p>
             </Reveal>
             <Reveal delay={200}>
-              <div className="services-hero-nav">
-                {services.map((service) => (
-                  <a
-                    key={service.id}
-                    href={`#${service.id}`}
-                    className="services-nav-pill"
-                  >
-                    <span className="services-nav-num">{service.number}</span>
-                    <span className="services-nav-label">{service.title}</span>
-                  </a>
-                ))}
+              <div className="services-hero-nav" role="navigation" aria-label="Services list">
+                {services.map((service) => {
+                  const isHighlighted = isPillHighlighted(service.id);
+                  return (
+                    <a
+                      key={service.id}
+                      href={`#${service.id}`}
+                      className={`services-nav-pill ${isHighlighted ? 'is-highlighted' : ''}`}
+                      onMouseEnter={() => setActiveServiceId(service.id)}
+                      onMouseLeave={() => setActiveServiceId(null)}
+                      onClick={(e) => handlePillClick(e, service.id)}
+                      aria-label={`Jump to ${service.number} ${service.title}`}
+                    >
+                      <span className="services-nav-num">{service.number}</span>
+                      <span className="services-nav-label">{service.title}</span>
+                    </a>
+                  );
+                })}
               </div>
             </Reveal>
           </div>
 
           {/* RIGHT — Interactive Ecosystem Visual */}
           <Reveal delay={160} direction="right" className="services-hero-right">
-            <HeroEcosystem />
+            <HeroEcosystem
+              activeServiceId={activeServiceId}
+              onCardHover={setHoveredCardId}
+              activeCardId={hoveredCardId}
+              onCardClick={(serviceId: string) => {
+                const el = document.getElementById(serviceId);
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  window.history.pushState(null, '', `#${serviceId}`);
+                }
+              }}
+            />
           </Reveal>
         </div>
       </section>
@@ -81,7 +147,11 @@ export default function Services() {
               <div className={`service-block-layout ${isEven ? '' : 'reversed'}`}>
                 <div className="service-block-content">
                   <Reveal>
-                    <span className="service-block-number">{service.number}</span>
+                    <div className="service-block-meta">
+                      <span className="service-block-number">{service.number}</span>
+                      <span className="service-meta-divider" aria-hidden="true">/</span>
+                      <span className="service-block-discipline">DISCIPLINE 0{i + 1}</span>
+                    </div>
                     <h2 className="service-block-title">{service.title}</h2>
                   </Reveal>
                   <Reveal delay={80}>
@@ -90,38 +160,61 @@ export default function Services() {
 
                   <Reveal delay={160}>
                     <div className="service-details-grid">
-                      <div className="service-detail">
-                        <h4 className="detail-label">What's included</h4>
+                      <div className="service-detail service-detail-included">
+                        <div className="detail-card-head">
+                          <span className="detail-badge">CAPABILITIES</span>
+                          <h4 className="detail-label">What's included</h4>
+                        </div>
                         <ul className="detail-list">
                           {service.includes.map((item) => (
-                            <li key={item}>{item}</li>
+                            <li key={item}>
+                              <span className="detail-check-icon" aria-hidden="true">✓</span>
+                              <span>{item}</span>
+                            </li>
                           ))}
                         </ul>
                       </div>
-                      <div className="service-detail">
-                        <h4 className="detail-label">Who it's for</h4>
-                        <p className="detail-text">{service.whoItsFor}</p>
-                        <h4 className="detail-label" style={{ marginTop: 'var(--space-lg)' }}>
-                          The outcome
-                        </h4>
-                        <p className="detail-text">{service.outcome}</p>
+                      <div className="service-details-stack">
+                        <div className="service-detail service-detail-target">
+                          <div className="detail-card-head">
+                            <span className="detail-badge">PROFILE</span>
+                            <h4 className="detail-label">Who it's for</h4>
+                          </div>
+                          <p className="detail-text">{service.whoItsFor}</p>
+                        </div>
+                        <div className="service-detail service-detail-outcome">
+                          <div className="detail-card-head">
+                            <span className="detail-badge detail-badge-impact">DELIVERABLE IMPACT</span>
+                            <h4 className="detail-label">The outcome</h4>
+                          </div>
+                          <p className="detail-text detail-outcome-text">{service.outcome}</p>
+                        </div>
                       </div>
                     </div>
                   </Reveal>
 
                   <Reveal delay={240}>
-                    <Link
-                      to={`/contact?service=${service.id}`}
-                      className="btn btn-primary service-block-cta"
-                    >
-                      Discuss this service <ArrowRight size={14} weight="bold" />
-                    </Link>
+                    <div className="service-block-actions">
+                      <Link
+                        to={`/contact?service=${service.id}`}
+                        className="btn btn-primary service-block-cta"
+                      >
+                        Discuss this service <ArrowRight size={14} weight="bold" />
+                      </Link>
+                    </div>
                   </Reveal>
                 </div>
 
-                <Reveal delay={120} direction={isEven ? 'right' : 'left'}>
-                  <div className="service-block-visual">
-                    <ServiceVisual serviceId={service.id} size="large" />
+                <Reveal delay={120} direction={isEven ? 'right' : 'left'} className="service-visual-col">
+                  <div className="service-visual-wrapper">
+                    <div className="service-visual-header">
+                      <span className="service-visual-number" aria-hidden="true">
+                        {service.number}
+                      </span>
+                    </div>
+                    <div className="service-block-visual">
+                      <ServiceVisual serviceId={service.id} size="large" />
+                    </div>
                   </div>
                 </Reveal>
               </div>

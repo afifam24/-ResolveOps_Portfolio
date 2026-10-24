@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowRight, EnvelopeSimple } from '@phosphor-icons/react';
 import { brand, projects, processSteps } from '../data/content';
 import Reveal from '../components/Reveal';
@@ -19,7 +19,8 @@ export default function Home() {
         <div className="container hero-container">
           <Reveal delay={100} direction="none">
             <span className="hero-eyebrow">
-              {brand.name} / {brand.subtitle}
+              <img src="/assets/logo.png" alt="" className="hero-eyebrow-logo" aria-hidden="true" />
+              <span>{brand.name} / {brand.subtitle}</span>
             </span>
           </Reveal>
 
@@ -27,7 +28,7 @@ export default function Home() {
             <h1 className="hero-heading">
               We Design.<br />
               We Develop.<br />
-              We <span className="text-accent">Grow.</span>
+              We <span className="text-accent">Grow</span>.
             </h1>
           </Reveal>
 

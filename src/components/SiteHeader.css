@@ -64,10 +64,10 @@
 
 .header-logo-icon {
   height: 34px;
-  width: auto;
+  width: 34px;
   display: block;
   object-fit: contain;
-  filter: brightness(1.15) saturate(0.85);
+  flex-shrink: 0;
 }
 
 .header-logo-text {

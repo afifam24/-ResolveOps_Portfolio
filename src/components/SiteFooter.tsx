@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowUp, EnvelopeSimple, InstagramLogo } from '@phosphor-icons/react';
 import { brand, navigation, projects } from '../data/content';
 import Reveal from './Reveal';

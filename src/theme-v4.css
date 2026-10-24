@@ -20,11 +20,10 @@
   transition: opacity 0.2s ease !important;
   background: radial-gradient(
     var(--edge-radius) circle at var(--edge-x, 50%) var(--edge-y, 0%),
-    #FFFFFF 0%,
-    rgba(245, 243, 255, 0.75) 15%,
-    rgba(233, 229, 255, 0.45) 35%,
-    var(--theme-glow-violet) 65%,
-    transparent 85%
+    rgba(196, 181, 253, 0.45) 0%,
+    rgba(167, 139, 250, 0.28) 25%,
+    rgba(139, 92, 246, 0.12) 55%,
+    transparent 80%
   ) !important;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0) !important;
   mask-composite: exclude !important;
@@ -61,8 +60,7 @@
 /* ── Typography & Colors ──────────────────────────────────── */
 .footer-col-title,
 .footer-logo-subtitle {
-  color: var(--accent);
-  text-shadow: 0 0 12px rgba(245, 243, 255, 0.35);
+  color: var(--color-violet-bright, #a78bfa);
 }
 
 .footer-link,
@@ -86,13 +84,11 @@
 
 .hero-email,
 .stack-caption {
-  color: var(--accent);
-  text-shadow: 0 0 12px rgba(245, 243, 255, 0.35);
+  color: var(--color-violet-bright, #a78bfa);
 }
 
-.process-section,
-.about-process {
-  background: var(--bg-secondary);
+.process-section {
+  background: transparent;
 }
 
 /* ── Subtle Anti-Gravity Card Lift ────────────────────────── */
